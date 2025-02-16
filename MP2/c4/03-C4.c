@@ -139,6 +139,12 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
+// count = get_sma(m, DateSMA, SMA, ohlc);
+int get_sma(int m, StrDate DateSMA[], double SMA[], double date[],
+            double ohlc[][4], int entries)
+{
+}
+
 void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
                StrDate stock)
 {
@@ -225,7 +231,7 @@ int main()
     */
 
     /* TO DO: fill up the blank to print the company symbol. */
-    printf("%s\n", _________);
+    printf("%s\n", stock);
 
     /*
         The following lines are used to test the function you defined for
@@ -245,7 +251,7 @@ int main()
             and the other parameters (aside from the first 3 parameters stated
             above) that you think you'll need to accomplish the requirement.
         */
-        count = _____function_name_____(m, DateSMA, SMA, _______other_parameters______);
+        count = get_sma(m, DateSMA, SMA, dates, ohlc, num_entries);
 
         /*
             The following will print the count value, the dates and SMA values.
