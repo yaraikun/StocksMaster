@@ -1,6 +1,6 @@
 # Machine Problems (MP) Repository
 
-Goated Monster Machine Project
+This is the Machine Problem Repository, subdivided into different parts with multiple challenges.
 
 ---
 
