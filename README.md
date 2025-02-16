@@ -5,13 +5,13 @@ Goated Monster Machine Project
 ---
 
 ## Table of Contents
-1. [MP1: First Machine Problem](#mp1-first-machine-problem)
-   - [Makefile Commands](#makefile-commands)
-   - [Challenges in MP1](#challenges-in-mp1)
-2. [MP2: Second Machine Problem](#mp2-second-machine-problem)
-   - [Makefile Commands](#makefile-commands-1)
-   - [Challenges in MP2](#challenges-in-mp2)
-3. [Conventional Commit Types](#conventional-commit-types)
+1. [MP1: First Machine Problem](#-mp1-first-machine-problem)
+   - [Makefile Commands](#-makefile-commands)
+   - [Challenges in MP1](#-challenges-in-mp1)
+2. [MP2: Second Machine Problem](#-mp2-second-machine-problem)
+   - [Makefile Commands](#-makefile-commands-1)
+   - [Challenges in MP2](#-challenges-in-mp2)
+3. [Conventional Commit Types](#-conventional-commit-types)
 
 ---
 
