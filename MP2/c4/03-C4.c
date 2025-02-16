@@ -139,7 +139,22 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
-int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[], double ohlc[][4], int entries)
+
+/*
+    Purpose: computes the SMA from the oldest to the most recent date
+    Returns: the total number of computed SMA values
+    @param : m is the number of periods or "window"
+    @param : DateSMA is an output array that stores the dates for each SMA value
+    @param : SMA is an an output array to store the SMA values
+    @param : date is an input array that stores dates for each stock entry
+    @param : ohlc is an input array storing Open, High, Low, and Close prices
+    @param : entries is an input integer that stores the total number of stock
+             entries
+    Pre-condition: input data follows the expected format and there are at
+                   least "m" entries to compute at least one SMA value
+*/
+int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[],
+            double ohlc[][4], int entries)
 {
     int i, j;
     double sum;
@@ -147,8 +162,7 @@ int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[], double ohlc[
 
     count = 0;
 
-    for (i = entries - 1; i >= m - 1; i--)
-    {
+    for (i = entries - 1; i >= m - 1; i--) {
         sum = 0;
 
         for (j = i; j > i - m; j--) {
@@ -163,6 +177,17 @@ int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[], double ohlc[
     return count;
 }
 
+/*
+    Purpose: reads stock market data (dates, OHLC values, and volume) from input
+    Returns: void (modifies the provided arrays and sets the number of entries)
+    @param : date is an array to store formatted dates
+    @param : ohlc is a 2D array storing Open, High, Low, and Close prices
+    @param : volume is an array storing volume values
+    @param : entries is a pointer to an integer that stores the number of
+             entries read
+    Pre-condition: input data follows the expected format and contains
+                   valid values
+*/
 void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
                StrDate stock)
 {
