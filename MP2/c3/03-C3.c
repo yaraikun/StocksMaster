@@ -1,9 +1,7 @@
 /*
     Do not forget to encode the info for GROUP NUMBER, DATA SUBMITTED, name and
-    section.
-
-    A deduction of 0.5 point will be applied for not complying with this
-    instruction!
+    section. A deduction of 0.5 point will be applied for not complying with
+    this instruction!
 
     GROUP NUMBER (2 digits): 03
     DATE SUBMITTED         :
@@ -159,7 +157,7 @@ int get_min_index(double ohlc[][4], int entries)
 
     for (i = 1; i < entries; i++) {
         price = get_avg(ohlc[i]);
-        if (price <= min_price) {  // Use <= to get the most recent occurrence
+        if (price <= min_price) {  // use <= to get the most recent occurrence
             min_price = price;
             min_index = i;
         }
@@ -180,7 +178,7 @@ int get_max_index(double ohlc[][4], int entries)
 
     for (i = 1; i < entries; i++) {
         price = get_avg(ohlc[i]);
-        if (price >= max_price) {  // Use <= to get the most recent occurrence
+        if (price >= max_price) {  // use <= to get the most recent occurrence
             max_price = price;
             max_index = i;
         }
