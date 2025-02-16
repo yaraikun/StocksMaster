@@ -139,6 +139,42 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
+void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
+               StrDate stock)
+{
+    StrDate temp_date; // temporary buffer/holder for date
+    double open, high, low, close, vol;
+    int i, read_count;
+    
+    // read stock symbol and number of entries
+    scanf("%s %d", stock, entries);
+
+    // read each transaction
+    for (i = 0; i < *entries; i++) {
+        read_count = scanf("%s %lf %lf %lf %lf %lf",
+                           temp_date,
+                           &open, &high, &low, &close,
+                           &vol);
+
+        // ensure correct number of values were read
+        if (read_count == 6) {
+            strcpy(date[i], temp_date);
+            ohlc[i][0] = open;
+            ohlc[i][1] = high;
+            ohlc[i][2] = low;
+            ohlc[i][3] = close;
+            volume[i] = vol;
+        } else {
+            // assign default values for incomplete lines
+            strcpy(date[i], "00/00/0000");
+            ohlc[i][0] = 0.0;
+            ohlc[i][1] = 0.0;
+            ohlc[i][2] = 0.0;
+            ohlc[i][3] = 0.0;
+            volume[i] = 0.0;
+        }
+    }
+}
 
 /*
     TO DO: Complete the body of the main() function.
@@ -156,6 +192,11 @@ int main()
         4. 2D array of double values for storing the OHLC values
         5. 1D array of double for storing the volume
     */
+    StrDate stock;
+    int num_entries;
+    StrDate dates[MAX];
+    double ohlc[MAX][4];
+    double volume[MAX];
 
     /* Do NOT change the next four lines of variable declarations.  */
     int i, j, m;
@@ -172,7 +213,7 @@ int main()
     /*
         TO DO: CALL the function that you defined above for reading the SHD.
     */
-    _________________________________; // fill-in the blank
+    read_data(dates, ohlc, volume, &num_entries, stock);
 
     /*
         NOTE: The statements below should produce the required output. You are
