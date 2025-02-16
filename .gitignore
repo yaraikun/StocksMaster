@@ -1,5 +1,5 @@
 # Ignore compiled binaries and output files
-MP1/bin/
-MP1/output/
-MP2/bin/
-MP2/output/
+mp1/bin/
+mp1/output/
+mp2/bin/
+mp2/output/
