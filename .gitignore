@@ -1,7 +1,3 @@
-MP1/specs
-MP2/specs
-MP3/specs
-
 # Ignore compiled binaries and output files
 MP1/bin/
 MP1/output/
