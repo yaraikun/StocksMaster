@@ -241,7 +241,7 @@ int main()
         4. 2D array of double for storing the OHLC values
         5. 1D array of double for storing the volume
     */
-    StrDate stock_symbol;
+    StrDate stock;
     int num_entries;
     StrDate dates[MAX];
     double ohlc[MAX][4];
@@ -259,7 +259,7 @@ int main()
     /*
         TO DO: CALL the function that you defined above for reading the SHD.
     */
-    read_data(dates, ohlc, volume, &num_entries, stock_symbol);
+    read_data(dates, ohlc, volume, &num_entries, stock);
 
     /*
         TO DO: Fill in the blanks by CALLING the functions that will compute
@@ -275,7 +275,7 @@ int main()
     */
 
     /* TO DO: fill up the blank to print the company symbol. */
-    printf("%s\n", stock_symbol);
+    printf("%s\n", stock);
 
     /*
         TO DO: Fill in the blanks to print the
