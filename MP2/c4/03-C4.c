@@ -139,10 +139,29 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
-// count = get_sma(m, DateSMA, SMA, ohlc);
-int get_sma(int m, StrDate DateSMA[], double SMA[], double date[],
-            double ohlc[][4], int entries)
+int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[], double ohlc[][4], int entries)
 {
+    int i, j;
+    double sum;
+    int count;
+
+    count = 0;
+
+    // process from the earliest date (2015) to latest (2019)
+    for (i = entries - 1; i >= m - 1; i--)
+    {
+        sum = 0;
+
+        for (j = i; j > i - m; j--) {
+            sum += ohlc[j][3];
+        }
+
+        SMA[count] = sum / m;
+        strcpy(DateSMA[count], date[i - m + 1]);
+        count++;
+    }
+
+    return count; // Return the number of SMA values computed
 }
 
 void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
@@ -231,7 +250,7 @@ int main()
     */
 
     /* TO DO: fill up the blank to print the company symbol. */
-    printf("%s\n", stock);
+    printf("%s\n\n", stock);
 
     /*
         The following lines are used to test the function you defined for
