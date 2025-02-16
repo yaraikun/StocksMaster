@@ -1,6 +1,6 @@
-# Machine Problems (MP) Repository
+# Stocks Master Machine Project
 
-This is the Machine Problem Repository, subdivided into different parts with multiple challenges.
+This repository contains solutions to this machine project that has to do with array and string manipulation.
 
 ---
 
