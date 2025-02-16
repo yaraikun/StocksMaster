@@ -147,7 +147,6 @@ int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[], double ohlc[
 
     count = 0;
 
-    // process from the earliest date (2015) to latest (2019)
     for (i = entries - 1; i >= m - 1; i--)
     {
         sum = 0;
@@ -161,7 +160,7 @@ int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[], double ohlc[
         count++;
     }
 
-    return count; // Return the number of SMA values computed
+    return count;
 }
 
 void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
