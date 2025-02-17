@@ -211,8 +211,7 @@ int main()
         index = _____________________(key, ____other_parameters____);
         printf("%4d  %12s %4d ", i + 1, key, index);
 
-        if (index != -1)
-        { // key was found
+        if (index != -1) { // key was found
             /*
                 TO DO: Fill in the blank to print the closing price and the
                        volume corresponding to the array index.
