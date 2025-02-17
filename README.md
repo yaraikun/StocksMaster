@@ -55,6 +55,12 @@ make clean     # Remove compiled files & outputs
 #### **C3 - TL;DR**
 Processes stock price data and finds min/max average OHLC values.
 
+#### **C4 - TL;DR**
+Calculates simple moving average of different ranges.
+
+#### **C5 - TL;DR**
+Use linear and binary search algorithms to search through stock entries.
+
 ---
 
 ## 🐟 Conventional Commit Types
