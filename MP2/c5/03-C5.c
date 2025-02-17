@@ -109,26 +109,26 @@
 // DO NOT remove or edit the #if and #endif processor directives
 #if 0
 /*
-	Purpose: determine if the search key is in the array or not using a linear
-	         search algorithm 
-	Returns: either the (a) index of the array where the key was found or
-	         (b) a -1 to indicate that the key was not found
-	@param : key is the search key
-	@param : A is the name of the array containing the universe of values
-	@param : n is the number of array elements to check
-	Pre-condition: the parameters contain valid values
+    Purpose: determine if the search key is in the array or not using a linear
+             search algorithm
+    Returns: either the (a) index of the array where the key was found or
+             (b) a -1 to indicate that the key was not found
+    @param : key is the search key
+    @param : A is the name of the array containing the universe of values
+    @param : n is the number of array elements to check
+    Pre-condition: the parameters contain valid values
 */
 int 
 Search(key, int A[], int n)
 {
-	int i; // indexing variable
+    int i; // indexing variable
 
-	// compare the search key with an element in the array
-	for (i = 0; i < n; i++)
-		if (key == A[i])  
-			return i;  // this means that the key was found	
+    // compare the search key with an element in the array
+    for (i = 0; i < n; i++)
+        if (key == A[i])
+            return i; // this means that the key was found
 
-	return -1; // -1 means that the key not found
+    return -1; // -1 means that the key not found
 }
 #endif
 
