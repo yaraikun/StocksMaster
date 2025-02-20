@@ -77,8 +77,8 @@
 /* Do NOT include other files. */
 
 /*
-    HARD REQUIREMENTS: NON-COMPLIANCE WILL MAKE YOUR SOLUTION INCORRECT or CAUSE
-    POINT DEDUCTIONS!
+    HARD REQUIREMENTS: NON-COMPLIANCE WILL MAKE YOUR SOLUTION INCORRECT or
+    CAUSE POINT DEDUCTIONS!
 
     1. You are NOT allowed to use library functions that were NOT discussed in
        our online class.
@@ -236,8 +236,8 @@ int main()
         1. a string for storing the company symbol, for example "AC"
         2. an integer for storing the actual number of rows of stock historical
            data (in the case of AC.txt this value will store 1216)
-        3. 1D array of string for storing the dates (assume that the date values
-           in the text file are are already formatted as "MM/DD/YYYY")
+        3. 1D array of string for storing the dates (assume that the date
+           values in the text file are are already formatted as "MM/DD/YYYY")
         4. 2D array of double for storing the OHLC values
         5. 1D array of double for storing the volume
     */
@@ -248,10 +248,10 @@ int main()
     double volume[MAX];
 
     /*
-        Do NOT change the next two variable declarations.  Use min_index to
+        Do NOT change the next two variable declarations. Use min_index to
         store the index of the array with the lowest (minimum) average OHLC
-        price. Similarly, use max_index to store index of the the array with the
-        highest (maximum) OHLC price.
+        price. Similarly, use max_index to store index of the the array with
+        the highest (maximum) OHLC price.
     */
     int min_index;
     int max_index;
@@ -270,8 +270,8 @@ int main()
 
     /*
         The next three printf() statements should produce the required output.
-        Refer to the accompanying C3-AC-EXPECTED.txt to see the expected results
-        using AC.txt as input file.
+        Refer to the accompanying C3-AC-EXPECTED.txt to see the expected
+        results using AC.txt as input file.
     */
 
     /* TO DO: fill up the blank to print the company symbol. */

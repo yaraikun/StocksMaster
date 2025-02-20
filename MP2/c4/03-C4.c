@@ -47,7 +47,7 @@
                          01-C4-AC-BBTEST.txt
 
        The output file 01-C4-AC-BBTEST.txt contains the results of the
-       comparison.  If you see Differences = 0 towards the end of the file, then
+       comparison. If you see Differences = 0 towards the end of the file, then
        it means that your program's output matches the expected output.
        Otherwise, if you see a Differences value higher than 0, then there's a
        strong probability that you either have a logical error in your program,
@@ -63,8 +63,8 @@
        your C program.
 
     4. TEST your solution using the stock historical data for other companies
-       other than AC.txt.  Note that there are no expected output files provided
-       for other companies.  You'll have to figure out how to verify the
+       other than AC.txt. Note that there are no expected output files provided
+       for other companies. You'll have to figure out how to verify the
        correctness of your program's output on your own.
 */
 
@@ -77,8 +77,8 @@
 /* Do NOT include other files. */
 
 /*
-    HARD REQUIREMENTS: NON-COMPLIANCE WILL MAKE YOUR SOLUTION INCORRECT or CAUSE
-    POINT DEDUCTIONS!
+    HARD REQUIREMENTS: NON-COMPLIANCE WILL MAKE YOUR SOLUTION INCORRECT or
+    CAUSE POINT DEDUCTIONS!
 
     1. You are NOT allowed to use library functions that were NOT discussed in
        our class.
@@ -96,7 +96,8 @@
            b. What is the nature of the functions return value (write "void" if
               the function is of type void)
            c. What is the nature of each formal parameter?
-           d. Pre-condition - what are the assumptions about the formal parameters?
+           d. Pre-condition - what are the assumptions about the formal
+              parameters?
 
        Follow the online documentation style in the Search() example
        function definition given below.
@@ -144,7 +145,8 @@ Search(key, int A[], int n)
     Purpose: computes the SMA from the oldest to the most recent date
     Returns: the total number of computed SMA values
     @param : m is the number of periods or "window"
-    @param : DateSMA is an output array that stores the dates for each SMA value
+    @param : DateSMA is an output array that stores the dates for each SMA
+             value
     @param : SMA is an an output array to store the SMA values
     @param : date is an input array that stores dates for each stock entry
     @param : ohlc is an input array storing Open, High, Low, and Close prices
@@ -178,7 +180,8 @@ int get_sma(int m, StrDate DateSMA[], double SMA[], StrDate date[],
 }
 
 /*
-    Purpose: reads stock market data (dates, OHLC values, and volume) from input
+    Purpose: reads stock market data (dates, OHLC values, and volume) from
+             input
     Returns: void (modifies the provided arrays and sets the number of entries)
     @param : date is an array to store formatted dates
     @param : ohlc is a 2D array storing Open, High, Low, and Close prices
@@ -236,7 +239,8 @@ int main()
         1. a string for storing company symbol, example "AC"
         2. an integer for storing the number of rows of stock historical data
            (in the case of AC.txt this value will store 1216)
-        3. 1D array of string for storing the dates (assume that the date values
+        3. 1D array of string for storing the dates (assume that the date
+           values
            in the SHD text file are are already formatted as "MM/DD/YYYY")
         4. 2D array of double values for storing the OHLC values
         5. 1D array of double for storing the volume
@@ -254,8 +258,8 @@ int main()
     double SMA[MAX];      // 1D array of SMA values
 
     /*
-        Do NOT change the next line of array definition. View the C4.h header file
-        to see the values of the macros.
+        Do NOT change the next line of array definition. View the C4.h header
+        file to see the values of the macros.
     */
     int test_cases[3] = {TEST_NDAYS1, TEST_NDAYS2, TEST_NDAYS3};
 
@@ -269,8 +273,8 @@ int main()
               allowed to change or edit ONLY those lines with blanks by
               filling-up the missing information.
 
-        Refer to the accompanying C4-AC-EXPECTED.txt to see the expected results
-        using AC.txt as input file.
+        Refer to the accompanying C4-AC-EXPECTED.txt to see the expected
+        results using AC.txt as input file.
     */
 
     /* TO DO: fill up the blank to print the company symbol. */

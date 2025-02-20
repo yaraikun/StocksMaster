@@ -137,8 +137,8 @@ void parse_date(string10 date, string2 month, string2 day, string4 year)
 }
 
 /*
-    Purpose: ensures a two-character format for month or day by adding a leading
-             zero if necessary
+    Purpose: ensures a two-character format for month or day by adding a
+             leading zero if necessary
     Returns: void (modifies part in place)
     @param : part is the month or day string to be formatted
     Pre-condition: part is a valid string containing one or two digits
@@ -206,7 +206,8 @@ void format_date(string10 date)
 }
 
 /*
-    Purpose: reads stock market data (dates, OHLC values, and volume) from input
+    Purpose: reads stock market data (dates, OHLC values, and volume) from
+             input
     Returns: void (modifies the provided arrays and sets the number of entries)
     @param : date is an array to store formatted dates
     @param : ohlc is a 2D array storing Open, High, Low, and Close prices
@@ -216,8 +217,8 @@ void format_date(string10 date)
     Pre-condition: input data follows the expected format and contains
                    valid values
 */
-void read_data(string10 date[], double ohlc[][4], double volume[], int *entries,
-               string10 stock)
+void read_data(string10 date[], double ohlc[][4], double volume[],
+               int *entries, string10 stock)
 {
     string10 temp_date; // temporary buffer/holder for date
     double open, high, low, close, vol;
@@ -263,8 +264,8 @@ void read_data(string10 date[], double ohlc[][4], double volume[], int *entries,
     @param : entries is the number of entries to print
     Pre-condition: arrays are properly initialized with valid data
 */
-void print_data(string10 date[], double ohlc[][4], double volume[], int entries,
-                string10 stock)
+void print_data(string10 date[], double ohlc[][4], double volume[],
+                int entries, string10 stock)
 {
     int i;  // indexing variable
 

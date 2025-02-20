@@ -80,8 +80,8 @@
 /* Do NOT include other files. */
 
 /*
-    HARD REQUIREMENTS: NON-COMPLIANCE WILL MAKE YOUR SOLUTION INCORRECT or CAUSE
-    POINT DEDUCTIONS!
+    HARD REQUIREMENTS: NON-COMPLIANCE WILL MAKE YOUR SOLUTION INCORRECT or
+    CAUSE POINT DEDUCTIONS!
 
     1. You are NOT allowed to use library functions that were NOT discussed in
        our class.
@@ -152,8 +152,8 @@ int main()
     /* TO DO: Declare your own local variables AFTER this comment. You MUST
               declare and use variables for the following:
        1. a string for storing company symbol, example "AC"
-       2. an integer for storing the number of rows of stock historical data (in
-          the case of AC.txt this value will store 1216)
+       2. an integer for storing the number of rows of stock historical data
+          (in the case of AC.txt this value will store 1216)
        3. 1D array of string for storing the dates (assume that the date values
           in the SHD text file are are already formatted as "MM/DD/YYYY")
        4. 2D array of double values for storing the OHLC values
@@ -183,8 +183,8 @@ int main()
               allowed to change or edit ONLY those lines with blanks by
               filling-up the missing information.
 
-        Refer to the accompanying C5-AC-EXPECTED.txt to see the expected results
-        using AC.txt as input file.
+        Refer to the accompanying C5-AC-EXPECTED.txt to see the expected
+        results using AC.txt as input file.
     */
 
     /* TO DO: fill up the blank to print the company symbol. */
@@ -203,8 +203,8 @@ int main()
             TO DO: call your own Linear Search function. The function should
                    return an integer value to be stored in index. It the search
                    key is found, it should correspond to the array index where
-                   the search key was found; otherwise, the value is -1. It must
-                   accept the search key as the 1st parameter. Supply the
+                   the search key was found; otherwise, the value is -1. It
+                   must accept the search key as the 1st parameter. Supply the
                    function name and the other parameters that you think you'll
                    need to accomplish the requirement.
         */
