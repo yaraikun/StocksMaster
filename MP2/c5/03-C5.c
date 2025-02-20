@@ -143,6 +143,116 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
+/*
+    Purpose: reads stock market data (dates, OHLC values, and volume) from
+             input
+    Returns: void (modifies the provided arrays and sets the number of entries)
+    @param : date is an array to store formatted dates
+    @param : ohlc is a 2D array storing Open, High, Low, and Close prices
+    @param : volume is an array storing volume values
+    @param : entries is a pointer to an integer that stores the number of
+             entries read
+    Pre-condition: input data follows the expected format and contains
+                   valid values
+*/
+int binary_search(StrDate key, StrDate date[], int n)
+{
+    int low, high, mid;
+    int found;
+    int i;
+
+    found = 0;
+
+    low = 0;
+    high = n - 1;
+
+    while (!found && low <= high) {
+        mid = low + (high - low) / 2;
+        if (strcmp(key, date[mid]) == 0)
+            found = 0;
+        else if (strcmp(key, date[mid]) < 0)
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    if (found)
+        return mid;
+    else
+        return -1;
+}
+
+/*
+    Purpose: reads stock market data (dates, OHLC values, and volume) from
+             input
+    Returns: void (modifies the provided arrays and sets the number of entries)
+    @param : date is an array to store formatted dates
+    @param : ohlc is a 2D array storing Open, High, Low, and Close prices
+    @param : volume is an array storing volume values
+    @param : entries is a pointer to an integer that stores the number of
+             entries read
+    Pre-condition: input data follows the expected format and contains
+                   valid values
+*/
+int linear_search(StrDate key, StrDate date[], int n)
+{
+    int i;
+
+    for (i = 0; i < n; i++)
+        if (strcmp(key, date[i]) == 0)
+            return i;
+
+    return -1;
+}
+
+/*
+    Purpose: reads stock market data (dates, OHLC values, and volume) from
+             input
+    Returns: void (modifies the provided arrays and sets the number of entries)
+    @param : date is an array to store formatted dates
+    @param : ohlc is a 2D array storing Open, High, Low, and Close prices
+    @param : volume is an array storing volume values
+    @param : entries is a pointer to an integer that stores the number of
+             entries read
+    Pre-condition: input data follows the expected format and contains
+                   valid values
+*/
+void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
+               StrDate stock)
+{
+    StrDate temp_date; // temporary buffer/holder for date
+    double open, high, low, close, vol;
+    int i, read_count;
+    
+    // read stock symbol and number of entries
+    scanf("%s %d", stock, entries);
+
+    // read each transaction
+    for (i = 0; i < *entries; i++) {
+        read_count = scanf("%s %lf %lf %lf %lf %lf",
+                           temp_date,
+                           &open, &high, &low, &close,
+                           &vol);
+
+        // ensure correct number of values were read
+        if (read_count == 6) {
+            strcpy(date[i], temp_date);
+            ohlc[i][0] = open;
+            ohlc[i][1] = high;
+            ohlc[i][2] = low;
+            ohlc[i][3] = close;
+            volume[i] = vol;
+        } else {
+            // assign default values for incomplete lines
+            strcpy(date[i], "00/00/0000");
+            ohlc[i][0] = 0.0;
+            ohlc[i][1] = 0.0;
+            ohlc[i][2] = 0.0;
+            ohlc[i][3] = 0.0;
+            volume[i] = 0.0;
+        }
+    }
+}
 
 /*
     TO DO: Complete the body of the main() function.
@@ -159,6 +269,11 @@ int main()
        4. 2D array of double values for storing the OHLC values
        5. 1D array of double for storing the volume
     */
+    StrDate stock;
+    int num_entries;
+    StrDate dates[MAX];
+    double ohlc[MAX][4];
+    double volume[MAX];
 
     /* Do NOT change the next three lines of variable declarations. */
     int i;
@@ -176,7 +291,7 @@ int main()
         TO DO: CALL the function that you defined above for reading the stock
                historical data.
     */
-    _________________________________; // fill-in the blank
+    read_data(dates, ohlc, volume, &num_entries, stock);
 
     /*
         NOTE: The statements below should produce the required output. You are
@@ -188,7 +303,7 @@ int main()
     */
 
     /* TO DO: fill up the blank to print the company symbol. */
-    printf("%s\n", _________);
+    printf("%s\n\n", stock);
 
     /*
         The following lines are used to test your Linear Search algorithm
@@ -208,7 +323,7 @@ int main()
                    function name and the other parameters that you think you'll
                    need to accomplish the requirement.
         */
-        index = _____________________(key, ____other_parameters____);
+        index = linear_search(key, dates, num_entries);
         printf("%4d  %12s %4d ", i + 1, key, index);
 
         if (index != -1) { // key was found
@@ -216,7 +331,7 @@ int main()
                 TO DO: Fill in the blank to print the closing price and the
                        volume corresponding to the array index.
             */
-            printf(" %8.2lf  %12.2lf", _______________, ______________);
+            printf(" %8.2lf  %12.2lf", ohlc[index][3], volume[index]);
         }
         printf("\n");
     }
@@ -239,7 +354,7 @@ int main()
                    function name and the other parameters that you think you'll
                    need to accomplish the requirement.
         */
-        index = _____________________(key, ____other_parameters____);
+        index = binary_search(key, dates, num_entries);
         printf("%4d  %12s %4d ", i + 1, key, index);
 
         if (index != -1) { // key was found
@@ -247,7 +362,7 @@ int main()
                 TO DO: Fill in the blank to print the closing price and the
                        volume corresponding to the array index.
             */
-            printf(" %8.2lf  %12.2lf", _______________, ______________);
+            printf(" %8.2lf  %12.2lf", ohlc[index][3], volume[index]);
         }
 
         printf("\n");
