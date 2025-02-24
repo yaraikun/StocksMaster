@@ -4,7 +4,7 @@
     this instruction!
 
     GROUP NUMBER (2 digits): 03
-    DATE SUBMITTED         :
+    DATE SUBMITTED         : 24 FEBRUARY 2025
 
     LASTNAME1, FIRSTNAME1: CALUPIG, EVAN RILEY L.   SECTION1: S23A
 
@@ -106,26 +106,26 @@
 // DO NOT remove or edit the #if and #endif processor directives
 #if 0
 /*
-	Purpose: determine if the search key is in the array or not using a linear
-	         search algorithm 
-	Returns: either the (a) index of the array where the key was found or
-	         (b) a -1 to indicate that the key was not found
-	@param : key is the search key
-	@param : A is the name of the array containing the universe of values
-	@param : n is the number of array elements to check
-	Pre-condition: the parameters contain valid values
+    Purpose: determine if the search key is in the array or not using a linear
+             search algorithm
+    Returns: either the (a) index of the array where the key was found or
+             (b) a -1 to indicate that the key was not found
+    @param : key is the search key
+    @param : A is the name of the array containing the universe of values
+    @param : n is the number of array elements to check
+    Pre-condition: the parameters contain valid values
 */
 int 
 Search(key, int A[], int n)
 {
-	int i; // indexing variable
+    int i; // indexing variable
 
-	// compare the search key with an element in the array
-	for (i = 0; i < n; i++)
-		if (key == A[i])  
-			return i;  // this means that the key was found	
+    // compare the search key with an element in the array
+    for (i = 0; i < n; i++)
+        if (key == A[i])
+            return i; // this means that the key was found
 
-	return -1; // -1 means that the key not found
+    return -1; // -1 means that the key not found
 }
 #endif
 
@@ -140,11 +140,24 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
+/*
+    Purpose: gets the average of the open, high, low, and close values
+    Returns: the average of the open, high, low, and close values
+    @param : ohlc is a 1D array with the open, high, low, and close values
+    Pre-condition: the parameters contain valid values
+*/
 double get_avg(double ohlc[])
 {
     return (ohlc[0] + ohlc[1] + ohlc[2] + ohlc[3]) / 4;
 }
 
+/*
+    Purpose: gets the index of the entry with the smallest SMA
+    Returns: the minimum index
+    @param : ohlc is a 2d array storing open, high, low, and close prices
+    @param : entries is an integer that stores the number of entries
+    Pre-condition: the parameters contain valid values
+*/
 int get_min_index(double ohlc[][4], int entries)
 {
     int i;
@@ -166,6 +179,13 @@ int get_min_index(double ohlc[][4], int entries)
     return min_index;
 }
 
+/*
+    Purpose: gets the index of the entry with the largest SMA
+    Returns: the maximum index
+    @param : ohlc is a 2d array storing open, high, low, and close prices
+    @param : entries is an integer that stores the number of entries
+    Pre-condition: the parameters contain valid values
+*/
 int get_max_index(double ohlc[][4], int entries)
 {
     int i;
@@ -187,6 +207,17 @@ int get_max_index(double ohlc[][4], int entries)
     return max_index;
 }
 
+/*
+    Purpose: reads stock market data (dates, OHLC values, and volume) from input
+    Returns: void (modifies the provided arrays and sets the number of entries)
+    @param : date is an array to store formatted dates
+    @param : ohlc is a 2D array storing Open, High, Low, and Close prices
+    @param : volume is an array storing volume values
+    @param : entries is a pointer to an integer that stores the number of
+             entries read
+    Pre-condition: input data follows the expected format and contains
+                   valid values
+*/
 void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
                StrDate stock)
 {
@@ -223,7 +254,6 @@ void read_data(StrDate date[], double ohlc[][4], double volume[], int *entries,
         }
     }
 }
-
 
 /*
     TO DO: Complete the body of the main() function.
