@@ -143,71 +143,55 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
-/*
-    Purpose: reads stock market data (dates, OHLC values, and volume) from
-             input
-    Returns: void (modifies the provided arrays and sets the number of entries)
-    @param : date is an array to store formatted dates
-    @param : ohlc is a 2D array storing Open, High, Low, and Close prices
-    @param : volume is an array storing volume values
-    @param : entries is a pointer to an integer that stores the number of
-             entries read
-    Pre-condition: input data follows the expected format and contains
-                   valid values
-*/
-int binary_search(StrDate key, StrDate date[], int n)
+int binary_search(StrDate key, StrDate date[], int entries)
 {
     int low, high, mid;
-    int found;
-    int i;
+    int fnd;
 
-    found = 0;
+    long int key_num;
+    long int mid_num;
 
+    key_num = numeric_date(key);
+
+    fnd = 0;
     low = 0;
-    high = n - 1;
+    high = entries - 1;
 
-    while (!found && low <= high) {
+    while (!fnd && low <= high) {
         mid = low + (high - low) / 2;
-        if (strcmp(key, date[mid]) == 0)
-            found = 0;
-        else if (strcmp(key, date[mid]) < 0)
-            high = mid - 1;
-        else
+        mid_num = numeric_date(date[mid]);
+
+        if (key_num == mid_num)
+            fnd = 1;
+
+        else if (key_num < mid_num)
             low = mid + 1;
+
+        else
+            high = mid - 1;
     }
 
-    if (found)
+    if (fnd)
         return mid;
-    else
-        return -1;
+    
+    return -1;
 }
 
-/*
-    Purpose: reads stock market data (dates, OHLC values, and volume) from
-             input
-    Returns: void (modifies the provided arrays and sets the number of entries)
-    @param : date is an array to store formatted dates
-    @param : ohlc is a 2D array storing Open, High, Low, and Close prices
-    @param : volume is an array storing volume values
-    @param : entries is a pointer to an integer that stores the number of
-             entries read
-    Pre-condition: input data follows the expected format and contains
-                   valid values
-*/
-int linear_search(StrDate key, StrDate date[], int n)
+int linear_search(StrDate key, StrDate date[], int entries)
 {
     int i;
+    long int key_num;
 
-    for (i = 0; i < n; i++)
-        if (strcmp(key, date[i]) == 0)
+    key_num = numeric_date(key);
+
+    for (i = 0; i < entries; i++)
+        if (numeric_date(date[i]) == key_num)
             return i;
 
     return -1;
 }
-
 /*
-    Purpose: reads stock market data (dates, OHLC values, and volume) from
-             input
+    Purpose: reads stock market data (dates, OHLC values, and volume) from input
     Returns: void (modifies the provided arrays and sets the number of entries)
     @param : date is an array to store formatted dates
     @param : ohlc is a 2D array storing Open, High, Low, and Close prices
