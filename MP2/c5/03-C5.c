@@ -4,7 +4,7 @@
     this instruction!
 
     GROUP NUMBER (2 digits): 03
-    DATE SUBMITTED         :
+    DATE SUBMITTED         : 24 FEBRUARY 2025
 
     LASTNAME1, FIRSTNAME1: CALUPIG, EVAN RILEY L.   SECTION1: S23A
 
@@ -143,6 +143,14 @@ Search(key, int A[], int n)
 /*
     Define the functions that you need below this comment.
 */
+/*
+    Purpose: searches for a given date in a sorted array using binary search.
+    Returns: the index of the date if found; otherwise, returns -1.
+    @param : key is the search key (date to find).
+    @param : date is an array containing sorted stock dates.
+    @param : entries is the number of elements in the date array.
+    Pre-condition: date array is sorted in descending order.
+*/
 int binary_search(StrDate key, StrDate date[], int entries)
 {
     int low, high, mid;
@@ -177,6 +185,14 @@ int binary_search(StrDate key, StrDate date[], int entries)
     return -1;
 }
 
+/*
+    Purpose: performs a linear search to find a given date in an array
+    Returns: the index of the date if found; otherwise, returns -1
+    @param : key is the search key (date to find)
+    @param : date is an array containing stock dates
+    @param : entries is the number of elements in the date array
+    Pre-condition: the date array contains valid formatted dates
+*/
 int linear_search(StrDate key, StrDate date[], int entries)
 {
     int i;
@@ -190,6 +206,7 @@ int linear_search(StrDate key, StrDate date[], int entries)
 
     return -1;
 }
+
 /*
     Purpose: reads stock market data (dates, OHLC values, and volume) from input
     Returns: void (modifies the provided arrays and sets the number of entries)
