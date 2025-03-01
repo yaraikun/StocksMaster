@@ -65,7 +65,7 @@
 	TO DO: replace GROUPNUMBER in the #include below with your own group number.  For example if you are group 1,
 	you should have #include "01-C6.h".  Group numbers from 1 to 9 should have a leading zero in the filename.
 */
-#include "GROUPNUMBER-C6.h"
+#include "03-C6.h"
 
 
 /* 

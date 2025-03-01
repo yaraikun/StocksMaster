@@ -1,2 +1,3 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -I.
+INCLUDE = -Iinclude -Ilib
+CFLAGS = $(INCLUDE) -Wall -Wextra
