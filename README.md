@@ -11,7 +11,10 @@ This repository contains solutions to this machine project that has to do with a
 2. [MP2: Second Machine Problem](#-mp2-second-machine-problem)
    - [Makefile Commands](#-makefile-commands-1)
    - [Challenges in MP2](#-challenges-in-mp2)
-3. [Conventional Commit Types](#-conventional-commit-types)
+3. [MP3: Third Machine Problem](#-mp3-third-machine-problem)
+   - [Makefile Commands](#-makefile-commands-2)
+   - [Challenges in MP1](#-challenges-in-mp3)
+4. [Conventional Commit Types](#-conventional-commit-types)
 
 ---
 
@@ -62,6 +65,38 @@ Calculates simple moving average of different ranges.
 
 #### **C5 - TL;DR**
 Use linear and binary search algorithms to search through stock entries.
+
+---
+
+## 📌 MP3: Third Machine Problem
+
+### 🔧 Makefile Commands
+```sh
+make compile      # Compile everything
+make run          # Run everything
+make test         # Test everything
+make c7           # Compile, run, and test c7
+make c8           # Compile, run, and test c8
+make compile_bb   # Compile bbtest
+make compile_c7   # Only compile c7
+make compile_c8   # Only compile c8
+make run_c7       # Only run c7
+make run_c8       # Only run c8
+make test_c7      # Only test c7
+make test_c8      # Only test c8
+make clean        # Remove compiled files & outputs
+```
+
+### 💺 Challenges in MP3
+
+#### **C6 - TL;DR**
+Define struct data types to store stock historical data, including OHLC prices and volume to be used in C7 and C8.
+
+#### **C7 - TL;DR**
+Processes stock data to calculate moving averages and identify buy/sell signals.
+
+#### **C8 - TL;DR**
+Expands on C7 to generate full trading signals based on moving averages.
 
 ---
 
