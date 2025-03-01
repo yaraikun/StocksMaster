@@ -58,7 +58,7 @@ compile_c7: | $(BIN_DIR)
 compile_c8: | $(BIN_DIR)
 	$(CC) $(CFLAGS) -o $(BIN_C8) $(SRC_C8)
 
-compile_bbtest:
+compile_bb:
 	$(CC) -o $(BBTEST_BIN) $(BBTEST_SRC)
 
 # Run Rules
@@ -69,10 +69,10 @@ run_c8: compile_c8 | $(OUTPUT_DIR)
 	$(BIN_C8) < $(INPUT) > $(OUTPUT_C8)
 
 # Test Rules
-test_c7: compile_bbtest run_c7
+test_c7: run_c7
 	$(BBTEST_BIN) $(EXPECTED_C7) $(OUTPUT_C7) > $(BBTEST_C7)
 
-test_c8: compile_bbtest run_c8
+test_c8: run_c8
 	$(BBTEST_BIN) $(EXPECTED_C8) $(OUTPUT_C8) > $(BBTEST_C8)
 
 # Ensure required directories exist
