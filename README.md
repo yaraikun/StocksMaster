@@ -13,7 +13,7 @@ This repository contains solutions to this machine project that has to do with a
    - [Challenges in MP2](#-challenges-in-mp2)
 3. [MP3: Third Machine Problem](#-mp3-third-machine-problem)
    - [Makefile Commands](#-makefile-commands-2)
-   - [Challenges in MP1](#-challenges-in-mp3)
+   - [Challenges in MP3](#-challenges-in-mp3)
 4. [Conventional Commit Types](#-conventional-commit-types)
 
 ---
