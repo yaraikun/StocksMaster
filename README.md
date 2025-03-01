@@ -38,6 +38,8 @@ Use I/O redirection to take input data, format the data, then print output.
 ### 🔧 Makefile Commands
 ```sh
 make compile   # Compile everything
+make run       # Run everything
+make test      # Test everything
 make c3        # Compile C3 only
 make c4        # Compile C4 only
 make c5        # Compile C5 only
