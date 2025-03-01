@@ -46,6 +46,7 @@
 /*
     You may #define any number of constants that you need below this comment.
 */
+#define MAX (1225)
 
 /*
     You may declare any typedef that you need below this comment.
@@ -71,10 +72,16 @@ typedef char StrStock[6];
     You are REQUIRED to write sensible inline comments to describe the
     purpose/use of each structure member.
 */
+struct shdTag {
+    StrDate date;   // stores the date of the stock
+    double ohlc[4]; // stores the OHLC (open, high, low, close) values
+    double volume;  // stores the volume value
+};
 
 /*
     TO DO: Declare a typedef alias for the struct data type you declared above.
 */
+typedef struct shdTag shdType;
 
 /*
     TO DO: Declare your struct data type for representing and storing ALL
@@ -91,9 +98,15 @@ typedef char StrStock[6];
     You are REQUIRED to write sensible inline comments to describe the
     purpose/use of each structure member.
 */
+struct stockTag {
+    StrStock symbol;      // stores the stock symbol
+    int num_entries;      // stores the actual number of rows of data
+    shdType records[MAX]; // stores the actual SHD
+};
 
 /*
     TO DO: Declare a typedef alias for the struct data type you declared above.
 */
+typedef struct stockTag stockType;
 
 #endif
