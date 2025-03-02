@@ -286,7 +286,7 @@ void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
     sell_price = ptrStock->records[sell_index].ohlc[3];
 
     PL = sell_price - buy_price;
-    percent_PL = PL / sell_price * 100;
+    percent_PL = PL / buy_price * 100;
 
     printf("BUY DATE %s FOUND IN INDEX %d!  BUY PRICE = %.2lf\n",
             buy_date, buy_index, buy_price);
