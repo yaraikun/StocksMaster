@@ -171,6 +171,10 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
         Implement the body of this function. Declare your own local variables.
     */
 
+    // indexing variables
+    int i;
+    int j;
+
     // temporary variables for storing the values
     StrStock temp_symbol;
     int temp_num_entries;
@@ -178,8 +182,12 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     double temp_ohlc[4];
     double temp_volume;
 
-    int i; // indexing variable
+    // pointer to the actual SHD for easier access
+    shdType *stock_data = ptr_stock->records;
 
+    // pointer to current row of SHD used in loop
+    shdType *current_record;
+    
     // first read the inputs onto temporary variables
     scanf("%s %d", temp_symbol, &temp_num_entries);
 
@@ -197,13 +205,16 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
                temp_ohlc + 3,
                &temp_volume);
 
-        // copy the data to the SHD records in the stock structure
-        strcpy(ptr_stock->records[i].date, temp_date);
-        ptr_stock->records[i].ohlc[0] = temp_ohlc[0];
-        ptr_stock->records[i].ohlc[1] = temp_ohlc[1];
-        ptr_stock->records[i].ohlc[2] = temp_ohlc[2];
-        ptr_stock->records[i].ohlc[3] = temp_ohlc[3];
-        ptr_stock->records[i].volume = temp_volume;
+        // get the pointer to the current row of SHD
+        current_record = stock_data + i;
+
+        // copy the data to the SHD records in the structure
+        strcpy(current_record->date, temp_date);    // copy the date
+
+        for (j = 0; j < 4; j++)
+            current_record->ohlc[j] = temp_ohlc[j]; // copy the ohlc values
+
+        current_record->volume = temp_volume;       // copy the volume
     }
 }
 
@@ -231,7 +242,7 @@ _______ ___________________ ( _________________)
 
     Take note that this function has ONE structure pointer formal parameter!
 */
-void Trade(StrDate buy_date, StrDate sell_date, __________ *ptrStock)
+void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
 {
     /*
         Implement the body of this function. Declare your own local variables.
@@ -278,7 +289,6 @@ int main()
         the missing information.
     */   
 
-
     /* 
         TO DO: Fill in the blank by CALLing the function that you defined above
         for reading the stock historical data.
@@ -287,15 +297,14 @@ int main()
                        // parameters
 
     /* TO DO: Fill in the blank to print the company symbol. */
-    printf("%s\n", __________); 
+    printf("%s\n", stock.symbol); 
 
     /*
         TO DO: Fill in the blank to print the count/number of rows of stock
         historical data.
     */
-    printf("%d\n", __________); 
+    printf("%d\n", stock.num_entries); 
     printf("\n");
-
 
     /*
         DO NOT change any of the codes below.
