@@ -269,8 +269,10 @@ void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
     */
     int buy_index;
     int sell_index;
+
     double buy_price;
     double sell_price;
+
     double PL;
     double percent_PL;
 
@@ -281,6 +283,11 @@ void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
     */    
     buy_index = binary_search(buy_date, ptrStock);
     sell_index = binary_search(sell_date, ptrStock);
+
+    if (buy_index == -1 || sell_index == -1) {
+        printf("Error: Trade not possible. Invalid date(s)\n");
+        return;
+    }
 
     buy_price = ptrStock->records[buy_index].ohlc[3];
     sell_price = ptrStock->records[sell_index].ohlc[3];
