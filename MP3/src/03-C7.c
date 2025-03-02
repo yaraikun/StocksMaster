@@ -241,13 +241,13 @@ int binary_search (StrDate key, stockType *ptr_stock)
 
     while (!found && low <= high) {
         mid = low + (high - low) / 2;
-        num_date = numeric_date(ptr_stock->records->date[mid]);
+        num_date = numeric_date(ptr_stock->records[mid].date);
         if (num_key == num_date)
             found = 1;
         else if (num_key < num_date)
-            high = mid - 1;
-        else
             low = mid + 1;
+        else
+            high = mid - 1;
     }
 
     return found ? mid : -1;
@@ -267,12 +267,33 @@ void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
     /*
         Implement the body of this function. Declare your own local variables.
     */
+    int buy_index;
+    int sell_index;
+    double buy_price;
+    double sell_price;
+    double PL;
+    double percent_PL;
 
     /* 
         IMPORTANT: The Trade() function must call the binary search function,
         defined above, TWO times. The first time is to search the buy_date.
         The second time is to search the sell_date.
     */    
+    buy_index = binary_search(buy_date, ptrStock);
+    sell_index = binary_search(sell_date, ptrStock);
+
+    buy_price = ptrStock->records[buy_index].ohlc[3];
+    sell_price = ptrStock->records[sell_index].ohlc[3];
+
+    PL = sell_price - buy_price;
+    percent_PL = PL / sell_price * 100;
+
+    printf("BUY DATE %s FOUND IN INDEX %d!  BUY PRICE = %.2lf\n",
+            buy_date, buy_index, buy_price);
+    printf("SELL DATE %s FOUND IN INDEX %d!  SELL PRICE = %.2lf\n",
+            sell_date, sell_index, sell_price);
+    printf("P/L = %.2lf\n", PL);
+    printf("%%P/L = %.2lf\n", percent_PL);
 }
 
 /*
