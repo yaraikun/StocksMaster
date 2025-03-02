@@ -234,7 +234,7 @@ int binary_search (StrDate key, stockType *ptr_stock)
     int num_date;
 
     low = 0;
-    high = ptr_stock->num_entries;
+    high = ptr_stock->num_entries - 1;
     found = 0;
 
     num_key = numeric_date(key);
