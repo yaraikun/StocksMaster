@@ -8,8 +8,10 @@
 
     LASTNAME1, FIRSTNAME1: CALUPIG, EVAN RILEY      SECTION1: S23A
 
-    NOTE: encode ONLY your NAME and section if this code is for your own individual solution
-          encode BOTH names and sections if this code is for your GROUP's final solution
+    NOTE: encode ONLY your NAME and section if this code is for your own
+          individual solution
+          encode BOTH names and sections if this code is for your GROUP's final
+          solution
 
     CCPROG2 MP Solution for Challenge #6 (C6) -- header file.
 
