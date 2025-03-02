@@ -175,45 +175,27 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     int j;
 
     // temporary variables for storing the values
-    StrStock temp_symbol;
-    int temp_num_entries;
-    StrDate temp_date;
-    double temp_ohlc[4];
-    double temp_volume;
+    StrStock symbol;
+    int num_entries;
+    StrDate date;
+    double ohlc[4];
+    double volume;
 
-    // pointer to the actual SHD for easier access
-    shdType *stock_data = ptr_stock->records;
+    // read inputs then copy values to structure
+    scanf("%s %d", symbol, &num_entries);
 
-    // pointer to current row of SHD used in loop
-    shdType *current_record;
-    
-    // first read the inputs onto temporary variables
-    scanf("%s %d", temp_symbol, &temp_num_entries);
+    strcpy(ptr_stock->symbol, symbol);
+    ptr_stock->num_entries = num_entries;
 
-    // copy values to structure
-    strcpy(ptr_stock->symbol, temp_symbol);
-    ptr_stock->num_entries = temp_num_entries;
+    // read SHD for each row
+    for (i = 0; i < num_entries; i++) {
+        scanf("%s %lf %lf %lf %lf %lf",
+               date, ohlc, ohlc+1, ohlc+2, ohlc+3, &volume);
 
-    // read data each row
-    for (i = 0; i < temp_num_entries; i++) {
-        scanf("%s %lf %lf %lf %lf %lf", // read ONE ROW of SHD data
-               temp_date,
-               temp_ohlc,
-               temp_ohlc + 1,
-               temp_ohlc + 2,
-               temp_ohlc + 3,
-               &temp_volume);
-
-        // get the pointer to the current row of SHD
-        current_record = stock_data + i;
-
-        // copy the data to the SHD records in the structure
-        strcpy(current_record->date, temp_date);    // copy the date
-
-        for (j = 0; j < 4; j++)
-            current_record->ohlc[j] = temp_ohlc[j]; // copy the ohlc values
-
-        current_record->volume = temp_volume;       // copy the volume
+        // copy the input data into the respective SHD row
+        strcpy(ptr_stock->records[i].date, date);
+        for (j = 0; j < 4; j++) ptr_stock->records[i].ohlc[j] = ohlc[j];
+        ptr_stock->records[i].volume = volume;
     }
 }
 
@@ -223,7 +205,7 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     Fill in the blanks.  The  missing items are the return data type, the
     function name, and the formal parameters.
 */
-int binary_search (StrDate key, stockType *ptr_stock)
+int binary_search(StrDate key, stockType *ptr_stock)
 {
     /*
         Implement the body of this function. Declare your own local variables.
