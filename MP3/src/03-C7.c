@@ -222,7 +222,7 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     @param : ptr_stock is a pointer to the stock structure containing the stock
              info along with the SHD
     Pre-condition: the contents of the structure ptr_stock is pointing to
-                   contains valid values
+                   contains valid values. key is in "MM/DD/YYYY" format
 */
 int binary_search(StrDate key, stockType *ptr_stock)
 {
