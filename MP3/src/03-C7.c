@@ -164,6 +164,14 @@ Search(key, int A[], int n)
     ptr_stock. Take note that this function has ONE structure pointer formal
     parameter!
 */
+
+/*
+    Purpose: read the SHD for the stock
+    Returns: void (reads and assigns values to the stock structure)
+    @param : ptr_stock is a pointer to a stock of type stockType
+    Pre-condition: the structure ptr_stock points to is a valid structure with
+                   the necessary members
+*/
 void read_data(stockType *ptr_stock) // do NOT change the parameter name
 {
     /*
@@ -205,29 +213,43 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     Fill in the blanks.  The  missing items are the return data type, the
     function name, and the formal parameters.
 */
+
+/*
+    Purpose: searches for the index of the date key in the SHD
+    Returns: (a) the index of the key if it is found or (b) -1 if it is not
+             found
+    @param : key is the date string that is to be searched in the SHD
+    @param : ptr_stock is a pointer to the stock structure containing the stock
+             info along with the SHD
+    Pre-condition: the contents of the structure ptr_stock is pointing to
+                   contains valid values
+*/
 int binary_search(StrDate key, stockType *ptr_stock)
 {
     /*
         Implement the body of this function. Declare your own local variables.
     */
+
+    // binary search variables
     int low, mid, high, found;
 
-    int num_key;
-    int num_date;
+    // long ints as numeric_date returns type long int
+    long int num_key;
+    long int num_date;
 
-    low = 0;
-    high = ptr_stock->num_entries - 1;
-    found = 0;
+    low = 0;                           // low is first index
+    high = ptr_stock->num_entries - 1; // low is last index
+    found = 0;                         // assume key is not found
 
-    num_key = numeric_date(key);
+    num_key = numeric_date(key); // convert key
 
     while (!found && low <= high) {
         mid = low + (high - low) / 2;
-        num_date = numeric_date(ptr_stock->records[mid].date);
+        num_date = numeric_date(ptr_stock->records[mid].date); // convert date
         if (num_key == num_date)
             found = 1;
         else if (num_key < num_date)
-            low = mid + 1;
+            low = mid + 1; // order of data is descending; search right
         else
             high = mid - 1;
     }
@@ -244,17 +266,33 @@ int binary_search(StrDate key, stockType *ptr_stock)
 
     Take note that this function has ONE structure pointer formal parameter!
 */
+
+/*
+    Purpose: computes profit/loss percentage of a trade and prints output
+    Returns: void (prints trade details, P/L amount, and P/L percentage)
+    @param : buy_date is the date string representing the buy date
+    @param : sell_date is the date string representing the sell date
+    @param : ptrStock is a pointer to the stock structure containing the stock
+             info along with the SHD
+    Pre-condition: the contents of the structure ptr_stock is pointing to
+                   contains valid values. buy_date and sell_date follow
+                   "MM/DD/YYYY" format
+*/
 void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
 {
     /*
         Implement the body of this function. Declare your own local variables.
     */
+
+    // buy and sell indices
     int buy_index;
     int sell_index;
 
+    // buy and sell prices
     double buy_price;
     double sell_price;
 
+    // percentage loss
     double PL;
     double percent_PL;
 
@@ -263,13 +301,18 @@ void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
         defined above, TWO times. The first time is to search the buy_date.
         The second time is to search the sell_date.
     */    
+
+    // call binary search to find buy date in SHD records
     buy_index = binary_search(buy_date, ptrStock);
     sell_index = binary_search(sell_date, ptrStock);
 
+    // if either index is not found, indicate error
     if (buy_index == -1 || sell_index == -1) {
         printf("Error: Trade not possible. Invalid date(s)\n");
         return;
     }
+
+    // else just run the program normally
 
     buy_price = ptrStock->records[buy_index].ohlc[3];
     sell_price = ptrStock->records[sell_index].ohlc[3];
