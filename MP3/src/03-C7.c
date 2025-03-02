@@ -79,7 +79,6 @@
 */
 #include "03-C6.h"
 
-
 /* 
     Do NOT define any constant in this file.  
 
@@ -218,7 +217,6 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     }
 }
 
-
 /*
     TO DO: Implement a binary search function.
 
@@ -231,7 +229,6 @@ _______ ___________________ ( _________________)
         Implement the body of this function. Declare your own local variables.
     */
 }
-
 
 /*
     TO DO: Implement the Trade() function. Do NOT change the return type, 
@@ -254,7 +251,6 @@ void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
         The second time is to search the sell_date.
     */    
 }
-
 
 /*
     TO DO: Complete the body of the main() function.
@@ -281,7 +277,6 @@ int main()
                      // header file contents
                      // the structure variable name should be stock -- don't
                      // change this!  
-
 
     /*
         NOTE: The statements below should produce the required output. You are
