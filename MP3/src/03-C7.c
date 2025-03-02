@@ -223,11 +223,34 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     Fill in the blanks.  The  missing items are the return data type, the
     function name, and the formal parameters.
 */
-_______ ___________________ ( _________________)
+int binary_search (StrDate key, stockType *ptr_stock)
 {
     /*
         Implement the body of this function. Declare your own local variables.
     */
+    int low, mid, high, found;
+
+    int num_key;
+    int num_date;
+
+    low = 0;
+    high = ptr_stock->num_entries;
+    found = 0;
+
+    num_key = numeric_date(key);
+
+    while (!found && low <= high) {
+        mid = low + (high - low) / 2;
+        num_date = numeric_date(ptr_stock->records->date[mid]);
+        if (num_key == num_date)
+            found = 1;
+        else if (num_key < num_date)
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    return found ? mid : -1;
 }
 
 /*
