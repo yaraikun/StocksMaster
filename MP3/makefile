@@ -15,12 +15,12 @@ SRC_C7=$(SRC_DIR)/03-C7.c
 SRC_C8=$(SRC_DIR)/03-C8.c
 
 # Executable Files
-BIN_C7=$(BIN_DIR)/03-C7.exe
-BIN_C8=$(BIN_DIR)/03-C8.exe
+BIN_C7=$(BIN_DIR)/03-C7.out
+BIN_C8=$(BIN_DIR)/03-C8.out
 
 # BB Test Files
 BBTEST_SRC=$(TEST_DIR)/bbtest.c
-BBTEST_BIN=$(TEST_DIR)/bbtest.exe
+BBTEST_BIN=$(TEST_DIR)/bbtest.out
 EXPECTED_C7=$(TEST_DIR)/C7-AC-EXPECTED.TXT
 EXPECTED_C8=$(TEST_DIR)/C8-AC-EXPECTED.TXT
 
@@ -38,7 +38,7 @@ BBTEST_C8=$(OUTPUT_DIR)/03-C8-AC-BBTEST.txt
 # Default Target: Compiles Everything
 all: compile
 
-# Compile all executables
+# Compile all.outcutables
 compile: compile_c7 compile_c8
 
 # Run all programs
