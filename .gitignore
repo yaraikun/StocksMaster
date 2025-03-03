@@ -5,3 +5,11 @@ mp2/bin/
 mp2/output/
 mp3/bin/
 mp3/output/
+
+# Weird sometimes it's capitalized, sometimes it is
+MP1/bin/
+MP1/output/
+MP2/bin/
+MP2/output/
+MP3/bin/
+MP3/output/
