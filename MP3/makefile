@@ -38,7 +38,7 @@ BBTEST_C8=$(OUTPUT_DIR)/03-C8-AC-BBTEST.txt
 # Default Target: Compiles Everything
 all: compile
 
-# Compile all.outcutables
+# Compile all executables
 compile: compile_c7 compile_c8
 
 # Run all programs
