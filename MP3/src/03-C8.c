@@ -236,11 +236,13 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         sma = 0;
         lma = 0;
 
-        for (j = i; j < i + ptr_indicator->mst && j < ptr_stock->num_entries; j++)
-            sma += ptr_stock->records[j].ohlc[3];
+        j = i;
+        while (j < i + ptr_indicator->mst && j < ptr_stock->num_entries)
+            sma += ptr_stock->records[j++].ohlc[3];
 
-        for (j = i; j < i + ptr_indicator->mlt && j < ptr_stock->num_entries; j++)
-            lma += ptr_stock->records[j].ohlc[3];
+        j = i;
+        while (j < i + ptr_indicator->mlt && j < ptr_stock->num_entries)
+            lma += ptr_stock->records[j++].ohlc[3];
 
         sma /= ptr_indicator->mst;
         lma /= ptr_indicator->mlt;
