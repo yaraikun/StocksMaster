@@ -138,7 +138,7 @@ Search(key, int A[], int n)
 
     // compare the search key with an element in the array
     for (i = 0; i < n; i++)
-        if (key == A[i])  
+        if (key == A[i])
             return i; // this means that the key was found	
 
     return -1; // -1 means that the key not found
@@ -198,7 +198,7 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
 }
 
 /*
-    TO DO: Implement the function ComputeSignal().  Do not change the function
+    TO DO: Implement the function ComputeSignal(). Do not change the function
     data type, function name and parameter names.
 
     Fill in the blank by supplying the missing portion only for the formal
@@ -217,11 +217,17 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
 void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
 {
     /*
-        Implement the body of this function.  Declare your own local variables.
+        Implement the body of this function. Declare your own local variables.
     */
+
+    // indexing variables
     int i;
     int j;
+
+    // accumulator variable
     int count;
+
+    // variable for storing short and long term moving averages
     double sma;
     double lma;
 
@@ -229,27 +235,33 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         You may define other helper functions and call them inside
         ComputeSignal().
     */
-    count = 0;
+    count = 0; // always initialize accumulator variables
 
+    // indexes from the last possible index to the first (remember the dataset
+    // is in descending chronological order)
     for (i = ptr_stock->num_entries - ptr_indicator->mlt; i >= 0; i--) {
 
         sma = 0;
         lma = 0;
 
-        j = i;
+        j = i; // calculate short term moving sum
         while (j < i + ptr_indicator->mst && j < ptr_stock->num_entries)
             sma += ptr_stock->records[j++].ohlc[3];
 
-        j = i;
+        j = i; // calculate long term moving sum
         while (j < i + ptr_indicator->mlt && j < ptr_stock->num_entries)
             lma += ptr_stock->records[j++].ohlc[3];
 
+        // divide sums by number of terms to get average
         sma /= ptr_indicator->mst;
         lma /= ptr_indicator->mlt;
 
+        // copy current records from ptr_stock to ptr_indicator
         strcpy(ptr_indicator->SIGNAL[count].date, ptr_stock->records[i].date);
         ptr_indicator->SIGNAL[count].short_term_MA = sma;
         ptr_indicator->SIGNAL[count].long_term_MA = lma;
+
+        // determine if signal is buy or sell
         ptr_indicator->SIGNAL[count].signal = sma > lma ? 'B' : 'S';
 
         count++;
@@ -265,28 +277,27 @@ int main()
 {
     /* Do NOT change the next two lines of variable declarations. */
     int i, j;
-    indicatorType indicator; // NOTE: study the file C8.h file -- it
-                             // contains the declaration of indicatorType
-                             // alias.
+    indicatorType indicator; // NOTE: study the file C8.h file -- it contains
+                             // the declaration of indicatorType alias.
 
     /*
-        Do NOT change the next line of array definition.
-        View the C8.h header file to see the values of the macros.
+        Do NOT change the next line of array definition. View the C8.h header
+        file to see the values of the macros.
     */
     int test_cases[4] = {TEST_NDAYS1, TEST_NDAYS2, TEST_NDAYS3, TEST_NDAYS4};
 
     /*
-        TO DO: Declare your own local structure variable that will the
-        store the SHD for a company read from an input text file
+        TO DO: Declare your own local structure variable that will the store
+        the SHD for a company read from an input text file
     */
     stockType stock; // supply the structure data type alias based on your C6 
                      // header file contents the structure variable name should
                      // be stock -- don't change this!
 
     /*
-        NOTE: The statements below should produce the required output. You
-        are allowed to change or edit ONLY those lines with blanks by
-        filling-up the missing information.
+        NOTE: The statements below should produce the required output. You are
+        allowed to change or edit ONLY those lines with blanks by filling-up
+        the missing information.
     */
 
     /*
@@ -307,8 +318,7 @@ int main()
     printf("\n");
 
     /*
-        except for the strcpy() below, DO NOT change any of the codes
-        below.
+        except for the strcpy() below, DO NOT change any of the codes below.
     */
     for (i = 0; i < 3; i++) {
         /*
@@ -316,10 +326,10 @@ int main()
         */
         strcpy(indicator.symbol, stock.symbol);
 
-        indicator.mst = test_cases[i];     // number of days for the short
-                                           // term SMA, ex. 50-day MA
-        indicator.mlt = test_cases[i + 1]; // number of days for the long
-                                           // term SMA,  ex. 200-day MA
+        indicator.mst = test_cases[i];     // number of days for the short term
+                                           // SMA, ex. 50-day MA
+        indicator.mlt = test_cases[i + 1]; // number of days for the long term
+                                           // SMA,  ex. 200-day MA
 
         ComputeSignal(&indicator, &stock); // call the function that you
                                            // implemented
@@ -339,9 +349,9 @@ int main()
             else if (indicator.SIGNAL[j].signal == 'S')
                 printf("SELL\n");
             else
-                printf("INCORRECT!\n"); // NOTE: there's a logical error in
-                                        // the student solution if this
-                                        // printf() executes!!!!
+                printf("INCORRECT!\n"); // NOTE: there's a logical error in the
+                                        // student solution if this printf() 
+                                        // executes!!!!
         }
         printf("\n\n");
     }
