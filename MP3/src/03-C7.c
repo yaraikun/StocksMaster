@@ -73,14 +73,14 @@
 #include <stdlib.h>
 
 /*
-    TO DO: replace GROUPNUMBER in the #include below with your own group number.
-    For example if you are group 1, you should have #include "01-C6.h". Group
-    numbers from 1 to 9 should have a leading zero in the filename.
+    TO DO: replace GROUPNUMBER in the #include below with your own group
+    number. For example if you are group 1, you should have #include "01-C6.h".
+    Group numbers from 1 to 9 should have a leading zero in the filename.
 */
 #include "03-C6.h"
 
 /* 
-    Do NOT define any constant in this file.  
+    Do NOT define any constant in this file.
 
     Do NOT declare any typedef that you need below this comment.
 
@@ -89,10 +89,10 @@
 */
 
 // Do NOT edit/delete the next two #include directives.
-#include "C7.h"                     // read and understand the contents of
-                                    // this file
-#include "numeric_date_helpers.c"   // read and understand the contents of
-                                    // this file
+#include "C7.h"                   // read and understand the contents of this
+                                  // file
+#include "numeric_date_helpers.c" // read and understand the contents of this
+                                  // file
 
 /* Do NOT include other files. */ 
 
@@ -118,14 +118,14 @@
 
        a. What is the purpose of the function?
 
-       b. What is the nature of the functions return value (write "void" if
-          the function is of type void)
+       b. What is the nature of the functions return value (write "void" if the
+          function is of type void)
 
        c. What is the nature of each formal parameter?
 
        d. Pre-condition - what are the assumptions about the formal parameters?
 
-       Follow the online documentation style in the Search() example  
+       Follow the online documentation style in the Search() example
        function definition given below.
 */
 
@@ -148,8 +148,8 @@ Search(key, int A[], int n)
 
     // compare the search key with an element in the array
     for (i = 0; i < n; i++)
-        if (key == A[i])  
-            return i;  // this means that the key was found	
+        if (key == A[i])
+            return i; // this means that the key was found	
 
     return -1; // -1 means that the key not found
 }
@@ -159,7 +159,7 @@ Search(key, int A[], int n)
     TO DO: Implement a function that will read the stock historical data via
     scanf(). The actual data will be supplied via input redirection.
 
-    Fill in the blanks.  The first missing item is the function name, and the
+    Fill in the blanks. The first missing item is the function name, and the
     second one is the missing portion for the data type of formal parameter
     ptr_stock. Take note that this function has ONE structure pointer formal
     parameter!
@@ -210,7 +210,7 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
 /*
     TO DO: Implement a binary search function.
 
-    Fill in the blanks.  The  missing items are the return data type, the
+    Fill in the blanks. The missing items are the return data type, the
     function name, and the formal parameters.
 */
 
@@ -300,7 +300,7 @@ void Trade(StrDate buy_date, StrDate sell_date, stockType *ptrStock)
         IMPORTANT: The Trade() function must call the binary search function,
         defined above, TWO times. The first time is to search the buy_date.
         The second time is to search the sell_date.
-    */    
+    */
 
     // call binary search to find buy date in SHD records
     buy_index = binary_search(buy_date, ptrStock);
@@ -352,13 +352,13 @@ int main()
     stockType stock; // supply the structure data type alias based on your C6
                      // header file contents
                      // the structure variable name should be stock -- don't
-                     // change this!  
+                     // change this!
 
     /*
         NOTE: The statements below should produce the required output. You are
         allowed to change or edit ONLY those lines with blanks by filling-up
         the missing information.
-    */   
+    */
 
     /* 
         TO DO: Fill in the blank by CALLing the function that you defined above
@@ -387,7 +387,7 @@ int main()
         printf("\n");
     }
 
-    /*         
+    /*
         Refer to the accompanying C7-AC-EXPECTED.TXT to see the expected
         results using AC.TXT as input file.
     */
