@@ -244,13 +244,12 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         sma = 0;
         lma = 0;
 
-        j = i; // calculate short term moving sum
-        while (j < i + ptr_indicator->mst && j < ptr_stock->num_entries)
-            sma += ptr_stock->records[j++].ohlc[3];
-
-        j = i; // calculate long term moving sum
-        while (j < i + ptr_indicator->mlt && j < ptr_stock->num_entries)
-            lma += ptr_stock->records[j++].ohlc[3];
+        j = i;
+        while (j < i + ptr_indicator->mlt && j < ptr_stock->num_entries) {
+            if (j < i + ptr_indicator->mst)
+                sma += ptr_stock->records[j].ohlc[3]; // short term
+            lma += ptr_stock->records[j++].ohlc[3];   // long term
+        }
 
         // divide sums by number of terms to get average
         sma /= ptr_indicator->mst;
