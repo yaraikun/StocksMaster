@@ -210,11 +210,40 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
     /*
         Implement the body of this function.  Declare your own local variables.
     */
+    int i;
+    int j;
+    int count;
+    double sma;
+    double lma;
+
+    double sum;
 
     /*
         You may define other helper functions and call them inside
         ComputeSignal().
     */
+    count = 0;
+
+    for (i = ptr_stock->num_entries - 1; i >= ptr_indicator->mlt; i--) {
+        count += 1;
+
+        sma = 0;
+        lma = 0;
+
+        for (j = i; j >= j - ptr_indicator->mst; j--)
+            sum += ptr_stock->records[j].ohlc[3];
+
+        for (j = i; j >= j - ptr_indicator->mlt; j--)
+            sum += ptr_stock->records[j].ohlc[3];
+
+        sma /= ptr_indicator->mst;
+        lma /= ptr_indicator->mlt;
+
+        strcpy(ptr_indicator->SIGNAL[i].date, ptr_stock->records[i].date);
+        ptr_indicator->SIGNAL[i].short_term_MA = sma;
+        ptr_indicator->SIGNAL[i].long_term_MA = lma;
+        ptr_indicator->SIGNAL[i].signal = sma > lma ? 'B' : 'S';
+    }
 }
 
 /*
