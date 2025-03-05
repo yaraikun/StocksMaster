@@ -205,7 +205,7 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     parameter ptr_stock. Take note that this function has TWO structure pointer
     parameters!
 */
-void ComputeSignal(indicatorType *ptr_indicator, _________ *ptr_stock)
+void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
 {
     /*
         Implement the body of this function.  Declare your own local variables.
@@ -273,7 +273,7 @@ int main()
         /*
             TO DO: Fill in the blank to copy the stock symbol.
         */
-        strcpy(indicator.symbol, __________);
+        strcpy(indicator.symbol, stock.symbol);
 
         indicator.mst = test_cases[i];     // number of days for the short
                                            // term SMA, ex. 50-day MA
