@@ -261,7 +261,7 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         ptr_indicator->SIGNAL[count].short_term_MA = sma;
         ptr_indicator->SIGNAL[count].long_term_MA = lma;
 
-        // determine if signal is buy or sell
+        // determine if signal is buy or sell, then increment
         ptr_indicator->SIGNAL[count++].signal = sma > lma ? 'B' : 'S';
     }
 
