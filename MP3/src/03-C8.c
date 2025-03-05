@@ -205,6 +205,15 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     parameter ptr_stock. Take note that this function has TWO structure pointer
     parameters!
 */
+
+/*
+    Purpose: computes the signal value from the m-day averages
+    Returns: void (assigns values to struct)
+    @param : ptr_indicator is a pointer to a struct of type indicatorType
+    @param : ptr_stock is a pointer to a stock of type stockType
+    Pre-condition: the structure pointers point to valid structures with the
+                   the necessary members
+*/
 void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
 {
     /*
