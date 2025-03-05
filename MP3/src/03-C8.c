@@ -222,25 +222,26 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
     */
     count = 0;
 
-    for (i = ptr_stock->num_entries - 1; i >= ptr_indicator->mlt; i--) {
-        count += 1;
+    for (i = ptr_stock->num_entries - ptr_indicator->mlt; i >= 0; i--) {
 
         sma = 0;
         lma = 0;
 
-        for (j = i; j >= j - ptr_indicator->mst; j--)
+        for (j = i; j < i + ptr_indicator->mst && j < ptr_stock->num_entries; j++)
             sma += ptr_stock->records[j].ohlc[3];
 
-        for (j = i; j >= j - ptr_indicator->mlt; j--)
+        for (j = i; j < i + ptr_indicator->mlt && j < ptr_stock->num_entries; j++)
             lma += ptr_stock->records[j].ohlc[3];
 
         sma /= ptr_indicator->mst;
         lma /= ptr_indicator->mlt;
 
-        strcpy(ptr_indicator->SIGNAL[i].date, ptr_stock->records[i].date);
-        ptr_indicator->SIGNAL[i].short_term_MA = sma;
-        ptr_indicator->SIGNAL[i].long_term_MA = lma;
-        ptr_indicator->SIGNAL[i].signal = sma > lma ? 'B' : 'S';
+        strcpy(ptr_indicator->SIGNAL[count].date, ptr_stock->records[i].date);
+        ptr_indicator->SIGNAL[count].short_term_MA = sma;
+        ptr_indicator->SIGNAL[count].long_term_MA = lma;
+        ptr_indicator->SIGNAL[count].signal = sma > lma ? 'B' : 'S';
+
+        count++;
     }
 
     ptr_indicator->count = count;
