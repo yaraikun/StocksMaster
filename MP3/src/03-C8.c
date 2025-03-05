@@ -154,11 +154,47 @@ Search(key, int A[], int n)
     ptr_stock. Take note that this function has ONE structure pointer formal
     parameter!
 */
-void ___________________(______ *ptr_stock) // do NOT change the parameter name
+
+/*
+    Purpose: read the SHD for the stock
+    Returns: void (reads and assigns values to the stock structure)
+    @param : ptr_stock is a pointer to a stock of type stockType
+    Pre-condition: the structure ptr_stock points to is a valid structure with
+                   the necessary members
+*/
+void read_data(stockType *ptr_stock) // do NOT change the parameter name
 {
     /*
-        Implement the body of this function.  Declare your own local variables.
+        Implement the body of this function. Declare your own local variables.
     */
+
+    // indexing variables
+    int i;
+    int j;
+
+    // temporary variables for storing the values
+    StrStock symbol;
+    int num_entries;
+    StrDate date;
+    double ohlc[4];
+    double volume;
+
+    // read inputs then copy values to structure
+    scanf("%s %d", symbol, &num_entries);
+
+    strcpy(ptr_stock->symbol, symbol);
+    ptr_stock->num_entries = num_entries;
+
+    // read SHD for each row
+    for (i = 0; i < num_entries; i++) {
+        scanf("%s %lf %lf %lf %lf %lf",
+               date, ohlc, ohlc+1, ohlc+2, ohlc+3, &volume);
+
+        // copy the input data into the respective SHD row
+        strcpy(ptr_stock->records[i].date, date);
+        for (j = 0; j < 4; j++) ptr_stock->records[i].ohlc[j] = ohlc[j];
+        ptr_stock->records[i].volume = volume;
+    }
 }
 
 /*
@@ -202,9 +238,9 @@ int main()
         TO DO: Declare your own local structure variable that will the
         store the SHD for a company read from an input text file
     */
-    __________ stock; // supply the structure data type alias based on your
-                      // C6 header file contents the structure variable
-                      // name should be stock -- don't change this!
+    stockType stock; // supply the structure data type alias based on your C6 
+                     // header file contents the structure variable name should
+                     // be stock -- don't change this!
 
     /*
         NOTE: The statements below should produce the required output. You
@@ -216,17 +252,17 @@ int main()
         TO DO: Fill in the blank by CALLing the function that you defined
         above for reading the stock historical data.
     */
-    ____________________(&stock); // do NOT change the &stock parameter, do
-                                  // NOT add other parameters
+    read_data(&stock); // do NOT change the &stock parameter, do NOT add other
+                       // parameters
 
     /* TO DO: Fill in the blank to print the company symbol. */
-    printf("%s\n", __________);
+    printf("%s\n", stock.symbol);
 
     /*
         TO DO: Fill in the blank to print the count/number of rows of stock
         historical data.
     */
-    printf("%d\n", __________);
+    printf("%d\n", stock.num_entries);
     printf("\n");
 
     /*
