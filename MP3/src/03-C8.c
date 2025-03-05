@@ -216,8 +216,6 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
     double sma;
     double lma;
 
-    double sum;
-
     /*
         You may define other helper functions and call them inside
         ComputeSignal().
@@ -231,10 +229,10 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         lma = 0;
 
         for (j = i; j >= j - ptr_indicator->mst; j--)
-            sum += ptr_stock->records[j].ohlc[3];
+            sma += ptr_stock->records[j].ohlc[3];
 
         for (j = i; j >= j - ptr_indicator->mlt; j--)
-            sum += ptr_stock->records[j].ohlc[3];
+            lma += ptr_stock->records[j].ohlc[3];
 
         sma /= ptr_indicator->mst;
         lma /= ptr_indicator->mlt;
@@ -244,6 +242,8 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         ptr_indicator->SIGNAL[i].long_term_MA = lma;
         ptr_indicator->SIGNAL[i].signal = sma > lma ? 'B' : 'S';
     }
+
+    ptr_indicator->count = count;
 }
 
 /*
