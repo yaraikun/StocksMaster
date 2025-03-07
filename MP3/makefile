@@ -14,13 +14,20 @@ TEST_DIR=test
 SRC_C7=$(SRC_DIR)/03-C7.c
 SRC_C8=$(SRC_DIR)/03-C8.c
 
+# Detect OS and set executable extension
+ifeq ($(OS),Windows_NT)
+    EXT := .exe
+else
+    EXT := .out
+endif
+
 # Executable Files
-BIN_C7=$(BIN_DIR)/03-C7.out
-BIN_C8=$(BIN_DIR)/03-C8.out
+BIN_C7=$(BIN_DIR)/03-C7$(EXT)
+BIN_C8=$(BIN_DIR)/03-C8$(EXT)
 
 # BB Test Files
 BBTEST_SRC=$(TEST_DIR)/bbtest.c
-BBTEST_BIN=$(TEST_DIR)/bbtest.out
+BBTEST_BIN=$(TEST_DIR)/bbtest$(EXT)
 EXPECTED_C7=$(TEST_DIR)/C7-AC-EXPECTED.TXT
 EXPECTED_C8=$(TEST_DIR)/C8-AC-EXPECTED.TXT
 
