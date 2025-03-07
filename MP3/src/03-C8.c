@@ -212,7 +212,9 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
     @param : ptr_indicator is a pointer to a struct of type indicatorType
     @param : ptr_stock is a pointer to a stock of type stockType
     Pre-condition: the structure pointers point to valid structures with the
-                   the necessary members
+                   the necessary members, the members contain valid values
+    Note: This rolling-sum solution produces many differences due to how
+          double-precision floating-point values are calculated
 */
 void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
 {
@@ -220,48 +222,72 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         Implement the body of this function. Declare your own local variables.
     */
 
-    // indexing variables
+    // indexing variable
     int i;
-    int j;
 
     // accumulator variable
     int count;
 
-    // variable for storing short and long term moving averages
-    double sma;
-    double lma;
+    // variables for storing short term sum and average
+    double sst;
+    double ast;
+
+    // variables for storing long term sum and average
+    double slt;
+    double alt;
+
+    // variables for storing the stock values for brevity
+    int n;
+    int mst;
+    int mlt;
 
     /*
         You may define other helper functions and call them inside
         ComputeSignal().
     */
-    count = 0; // always initialize accumulator variables
+
+    // set stock values
+    n = ptr_stock->num_entries;
+    mst = ptr_indicator->mst;
+    mlt = ptr_indicator->mlt;
+
+    // always initialize accumulator variables
+    count = 0;
+    sst = 0;
+    slt = 0;
+
+    // initialize short and long term sum
+    for (i = n - mlt; i < n; i++) {
+        if (i < n - mlt + mst)
+            sst += ptr_stock->records[i].ohlc[3]; // short term
+        slt += ptr_stock->records[i].ohlc[3];     // long term
+    }
 
     // indexes from the last possible index to the first (remember the dataset
     // is in descending chronological order)
-    for (i = ptr_stock->num_entries - ptr_indicator->mlt; i >= 0; i--) {
-
-        sma = 0;
-        lma = 0;
-
-        j = i;
-        while (j < i + ptr_indicator->mlt && j < ptr_stock->num_entries) {
-            if (j < i + ptr_indicator->mst)
-                sma += ptr_stock->records[j].ohlc[3]; // short term
-            lma += ptr_stock->records[j++].ohlc[3];   // long term
-        }
+    for (i = n - mlt; i >= 0; i--) {
 
         // divide sums by number of terms to get average
-        sma /= ptr_indicator->mst;
-        lma /= ptr_indicator->mlt;
+        // NOTE: casted type (double) to mst and mlt to potentially reduce
+        //       floating-point errors for some compilers
+        ast = sst / (double) mst;
+        alt = slt / (double) mlt;
 
         // copy current records from ptr_stock to ptr_indicator
         strcpy(ptr_indicator->SIGNAL[count].date, ptr_stock->records[i].date);
-        ptr_indicator->SIGNAL[count].short_term_MA = sma;
-        ptr_indicator->SIGNAL[count].long_term_MA = lma;
+        ptr_indicator->SIGNAL[count].short_term_MA = ast;
+        ptr_indicator->SIGNAL[count].long_term_MA = alt;
 
-        // determine if signal is buy or sell, then increment
-        ptr_indicator->SIGNAL[count++].signal = sma > lma ? 'B' : 'S';
+        // determine if signal is buy or sell, then increment count
+        ptr_indicator->SIGNAL[count++].signal = ast > alt ? 'B' : 'S';
+
+        sst -= ptr_stock->records[i + mst - 1].ohlc[3]; // remove old st value
+        slt -= ptr_stock->records[i + mlt - 1].ohlc[3]; // remove old lt value
+
+        // NOTE: last iteration accesses out of bounds index, but value is not
+        //       used at the end
+        sst += ptr_stock->records[i - 1].ohlc[3]; // add new st value
+        slt += ptr_stock->records[i - 1].ohlc[3]; // add new lt value
     }
 
     ptr_indicator->count = count;
