@@ -257,15 +257,26 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
     slt = 0;
 
     // initialize short and long term sum
-    for (i = n - mlt; i < n; i++) {
-        if (i < n - mlt + mst)
-            sst += ptr_stock->records[i].ohlc[3]; // short term
-        slt += ptr_stock->records[i].ohlc[3];     // long term
-    }
+    // for (i = n - mlt; i < n; i++) {
+    //     if (i < n - mlt + mst)
+    //         sst += ptr_stock->records[i].ohlc[3]; // short term
+    //     slt += ptr_stock->records[i].ohlc[3];     // long term
+    // }
 
     // indexes from the last possible index to the first (remember the dataset
     // is in descending chronological order)
     for (i = n - mlt; i >= 0; i--) {
+        // computes for rolling sum periodically every k iterations to prevent
+        // accumulated precision errors
+        if (count % 25 == 0) { // recalculate rolling sum every 20 iterations
+            sst = 0; 
+            slt = 0; 
+            for (int j = i; j < i + mlt; j++) {
+                if (j < i + mst)
+                    sst += ptr_stock->records[j].ohlc[3];
+                slt += ptr_stock->records[j].ohlc[3]; 
+            }
+        }
 
         // divide sums by number of terms to get average
         // NOTE: casted type (double) to mst and mlt to potentially reduce
