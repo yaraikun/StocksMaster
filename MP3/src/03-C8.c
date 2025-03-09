@@ -268,7 +268,7 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
     for (i = n - mlt; i >= 0; i--) {
         // computes for rolling sum periodically every k iterations to prevent
         // accumulated precision errors
-        if (count % 25 == 0) { // recalculate rolling sum every 20 iterations
+        if (count % 25 == 0) {
             sst = 0; 
             slt = 0; 
             for (int j = i; j < i + mlt; j++) {
