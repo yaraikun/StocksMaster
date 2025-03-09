@@ -250,6 +250,8 @@ void ComputeAverages(double sst, double slt, indicatorType *ptr_indicator, doubl
     //       for some compilers.
     *ast = sst / (double) ptr_indicator->mst;
     *alt = slt / (double) ptr_indicator->mlt;
+    // *ast = sst * (1.0 / ptr_indicator->mst);
+    // *alt = slt * (1.0 / ptr_indicator->mlt);
 }
 
 /*
