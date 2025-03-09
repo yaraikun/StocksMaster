@@ -323,27 +323,25 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
     double ast; // short term average
     double slt; // long term sum
     double alt; // long term average
+    int k;      // sum recalculation frequency
 
     /*
         You may define other helper functions and call them inside
         ComputeSignal().
     */
 
-    // always initialize accumulator variables
-    count = 0;
-    sst = 0;
-    slt = 0;
-
-    int k = 25; // sum recalculation frequency
+    count = 0; // always initialize accumulator variables
+    k = 25;    // sum recalculation frequency
 
     // indexes from the last possible index to the first (remember the dataset
     // is in descending chronological order)
-    for (i = ptr_stock->num_entries - ptr_indicator->mlt; i >= 0; i--)
-    {
-        // NOTE: this periodic sum reset is my "meet in the middle" solution --
-        //       no need to recalculate the sum every turn, while still
-        //       maintaining a degree of accuracy with the values compared to a
-        //       pure rolling-sum solution
+    for (i = ptr_stock->num_entries - ptr_indicator->mlt; i >= 0; i--) {
+        /*
+            NOTE: this periodic sum reset is my "meet in the middle" solution --
+                  no need to recalculate the sum every turn, while still
+                  maintaining a degree of accuracy with the values compared to a
+                  pure rolling-sum solution
+        */
         if (count % k == 0)
             ComputeRollingSum(ptr_stock, ptr_indicator, i, &sst, &slt);
 
