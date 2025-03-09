@@ -207,14 +207,107 @@ void read_data(stockType *ptr_stock) // do NOT change the parameter name
 */
 
 /*
-    Purpose: computes the signal value from the m-day averages
+    ComputeSignal() Helper Function #1
+    Note   : This function is periodically called to prevent floating-point
+             precision errors from accumulating in the rolling sum updates.
+    Purpose: computes the rolling sum for the short-term and long-term
+             moving averages
+    Returns: void (updates sst and slt directly via pointers)
+    @param : ptr_stock is a pointer to a struct of type stockType
+    @param : ptr_indicator is a pointer to a struct of type indicatorType
+    @param : i is the current index in the dataset
+    @param : sst is a pointer to store the computed short-term sum
+    @param : slt is a pointer to store the computed long-term sum
+    Pre-condition: the structure pointers point to valid structures with the
+                   necessary members, and the members contain valid values
+*/
+void ComputeRollingSum(stockType *ptr_stock, indicatorType *ptr_indicator, int i, double *sst, double *slt)
+{
+    *sst = 0;
+    *slt = 0;
+
+    for (int j = i; j < i + ptr_indicator->mlt; j++) {
+        if (j < i + ptr_indicator->mst)
+            *sst += ptr_stock->records[j].ohlc[3]; // short-term sum
+        *slt += ptr_stock->records[j].ohlc[3];     // long-term sum
+    }
+}
+
+/*
+    ComputeSignal() Helper Function #2
+    Purpose: computes the short-term and long-term moving averages
+    Returns: void (assigns values to ast and alt via pointers)
+    @param : sst is the computed short-term rolling sum
+    @param : slt is the computed long-term rolling sum
+    @param : ptr_indicator is a pointer to a struct of type indicatorType
+    @param : ast is a pointer to store the computed short-term moving average
+    @param : alt is a pointer to store the computed long-term moving average
+    Pre-condition: the rolling sums have been correctly computed.
+*/
+void ComputeAverages(double sst, double slt, indicatorType *ptr_indicator, double *ast, double *alt)
+{
+    // NOTE: casted mst and mlt to (double) helps reduce floating-point errors
+    //       for some compilers.
+    *ast = sst / (double) ptr_indicator->mst;
+    *alt = slt / (double) ptr_indicator->mlt;
+}
+
+/*
+    ComputeSignal() Helper Function #3
+    Purpose: copies the computed moving averages into the indicator struct
+             and assigns the buy/sell signal
+    Returns: void (modifies ptr_indicator->SIGNAL[count] directly)
+    @param : ptr_indicator is a pointer to a struct of type indicatorType
+    @param : ptr_stock is a pointer to a struct of type stockType
+    @param : i is the current index in the dataset
+    @param : count is the current signal count index
+    @param : ast is the computed short-term moving average
+    @param : alt is the computed long-term moving average
+    Pre-condition: moving averages have been correctly computed
+*/
+void UpdateSignal(indicatorType *ptr_indicator, stockType *ptr_stock, int i, int count, double ast, double alt)
+{
+    strcpy(ptr_indicator->SIGNAL[count].date, ptr_stock->records[i].date);
+    ptr_indicator->SIGNAL[count].short_term_MA = ast;
+    ptr_indicator->SIGNAL[count].long_term_MA = alt;
+    ptr_indicator->SIGNAL[count].signal = ast > alt ? 'B' : 'S';
+}
+
+/*
+    ComputeSignal() Helper Function #4
+    Note   : This function allows the rolling sum approach to work efficiently
+             while avoiding full recalculations at each iteration.
+    Purpose: updates the rolling sum by removing the oldest value and adding
+             the newest value to maintain a moving sum
+    Returns: void (modifies sst and slt directly via pointers)
+    @param : ptr_stock is a pointer to a struct of type stockType
+    @param : ptr_indicator is a pointer to a struct of type indicatorType
+    @param : i is the current index in the dataset
+    @param : sst is a pointer to the short-term rolling sum
+    @param : slt is a pointer to the long-term rolling sum
+    Pre-condition: the rolling sums have been correctly initialized
+*/
+void UpdateRollingSum(stockType *ptr_stock, indicatorType *ptr_indicator, int i, double *sst, double *slt)
+{
+    // remove old values
+    *sst -= ptr_stock->records[i + ptr_indicator->mst - 1].ohlc[3];
+    *slt -= ptr_stock->records[i + ptr_indicator->mlt - 1].ohlc[3];
+
+    // add new values
+    *sst += ptr_stock->records[i - 1].ohlc[3];
+    *slt += ptr_stock->records[i - 1].ohlc[3];
+
+    // NOTE: last iteration accesses out of bounds index, but value is not used
+    // at the end
+}
+
+/*
+    Purpose: Computes the signal value from the m-day averages.
     Returns: void (assigns values to struct)
     @param : ptr_indicator is a pointer to a struct of type indicatorType
     @param : ptr_stock is a pointer to a stock of type stockType
-    Pre-condition: the structure pointers point to valid structures with the
-                   the necessary members, the members contain valid values
-    Note: This rolling-sum solution produces many differences due to how
-          double-precision floating-point values are calculated
+    Pre-condition: The structure pointers point to valid structures with the
+                   necessary members, and the members contain valid values.
 */
 void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
 {
@@ -222,83 +315,39 @@ void ComputeSignal(indicatorType *ptr_indicator, stockType *ptr_stock)
         Implement the body of this function. Declare your own local variables.
     */
 
-    // indexing variable
-    int i;
-
-    // accumulator variable
-    int count;
-
-    // variables for storing short term sum and average
-    double sst;
-    double ast;
-
-    // variables for storing long term sum and average
-    double slt;
-    double alt;
-
-    // variables for storing the stock values for brevity
-    int n;
-    int mst;
-    int mlt;
+    int i;      // indexing variable
+    int count;  // accumulator variable
+    double sst; // short term sum
+    double ast; // short term average
+    double slt; // long term sum
+    double alt; // long term average
 
     /*
         You may define other helper functions and call them inside
         ComputeSignal().
     */
 
-    // set stock values
-    n = ptr_stock->num_entries;
-    mst = ptr_indicator->mst;
-    mlt = ptr_indicator->mlt;
-
     // always initialize accumulator variables
     count = 0;
     sst = 0;
     slt = 0;
 
-    // initialize short and long term sum
-    // for (i = n - mlt; i < n; i++) {
-    //     if (i < n - mlt + mst)
-    //         sst += ptr_stock->records[i].ohlc[3]; // short term
-    //     slt += ptr_stock->records[i].ohlc[3];     // long term
-    // }
+    int k = 25; // sum recalculation frequency
 
     // indexes from the last possible index to the first (remember the dataset
     // is in descending chronological order)
-    for (i = n - mlt; i >= 0; i--) {
-        // computes for rolling sum periodically every k iterations to prevent
-        // accumulated precision errors
-        if (count % 25 == 0) {
-            sst = 0; 
-            slt = 0; 
-            for (int j = i; j < i + mlt; j++) {
-                if (j < i + mst)
-                    sst += ptr_stock->records[j].ohlc[3];
-                slt += ptr_stock->records[j].ohlc[3]; 
-            }
-        }
+    for (i = ptr_stock->num_entries - ptr_indicator->mlt; i >= 0; i--)
+    {
+        // NOTE: this periodic sum reset is my "meet in the middle" solution --
+        //       no need to recalculate the sum every turn, while still
+        //       maintaining a degree of accuracy with the values compared to a
+        //       pure rolling-sum solution
+        if (count % k == 0)
+            ComputeRollingSum(ptr_stock, ptr_indicator, i, &sst, &slt);
 
-        // divide sums by number of terms to get average
-        // NOTE: casted type (double) to mst and mlt to potentially reduce
-        //       floating-point errors for some compilers
-        ast = sst / (double) mst;
-        alt = slt / (double) mlt;
-
-        // copy current records from ptr_stock to ptr_indicator
-        strcpy(ptr_indicator->SIGNAL[count].date, ptr_stock->records[i].date);
-        ptr_indicator->SIGNAL[count].short_term_MA = ast;
-        ptr_indicator->SIGNAL[count].long_term_MA = alt;
-
-        // determine if signal is buy or sell, then increment count
-        ptr_indicator->SIGNAL[count++].signal = ast > alt ? 'B' : 'S';
-
-        sst -= ptr_stock->records[i + mst - 1].ohlc[3]; // remove old st value
-        slt -= ptr_stock->records[i + mlt - 1].ohlc[3]; // remove old lt value
-
-        // NOTE: last iteration accesses out of bounds index, but value is not
-        //       used at the end
-        sst += ptr_stock->records[i - 1].ohlc[3]; // add new st value
-        slt += ptr_stock->records[i - 1].ohlc[3]; // add new lt value
+        ComputeAverages(sst, slt, ptr_indicator, &ast, &alt);
+        UpdateSignal(ptr_indicator, ptr_stock, i, count++, ast, alt);
+        UpdateRollingSum(ptr_stock, ptr_indicator, i, &sst, &slt);
     }
 
     ptr_indicator->count = count;
