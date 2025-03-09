@@ -4,7 +4,7 @@
     this instruction!
 
     GROUP NUMBER (2 digits): 03
-    DATE SUBMITTED         :
+    DATE SUBMITTED         : 09 MARCH 2025
 
     LASTNAME1, FIRSTNAME1: CALUPIG, EVAN RILEY      SECTION1: S23A
 
