@@ -1,5 +1,5 @@
 CC = gcc
-INCLUDE = -Iinclude
+INCLUDE = -Iinclude -Ilib
 CFLAGS = -Wall -Wextra $(INCLUDE)
 
 SRC_DIR = src
