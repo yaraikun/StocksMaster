@@ -149,6 +149,8 @@ Search(key, int A[], int n)
 #endif
 
 /* TO DO: define the functions that you need below this comment. */
+typedef char Str30[31];
+
 void parse_date(StrDate date, StrDate month, StrDate day, StrDate year)
 {
     int i = 0, j = 0;   // indexing variables
@@ -216,7 +218,7 @@ int read_stock_data(stockType *stock, char *symbol)
 {
    int i;
    FILE *fp;
-   StrStock file_name;
+   Str30 file_name;
 
    strcpy(file_name, symbol);
    strcat(file_name, ".txt");
@@ -281,7 +283,13 @@ void write_stock_data(stockType *stock)
    int i;
    FILE *fp;
 
-   fp = fopen("03-SYMBOL.txt", "w");
+   Str30 file_name;
+
+   strcpy(file_name, "03-");
+   strcat(file_name, stock->symbol);
+   strcpy(file_name, ".txt");
+
+   fp = fopen(file_name, "w");
 
    if (fp == NULL) {
       fprintf(stderr, "ERROR: Cannot create output file.");
