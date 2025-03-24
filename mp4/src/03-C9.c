@@ -228,18 +228,16 @@ int read_stock_data(stockType *stock, char *symbol)
       exit(1);
    }
 
-   fscanf(fp, "%s %d", stock->symbol, stock->num_entries);
+   fscanf(fp, "%s %d", stock->symbol, &stock->num_entries);
 
-   i = 0;
-   while (i < stock->num_entries) {
+   for (i = 0; i < stock->num_entries; i++) {
       fscanf(fp, "%s %lf %lf %lf %lf %lf",
              stock->records[i].date,
-             stock->records[i].ohlc[0],
-             stock->records[i].ohlc[1],
-             stock->records[i].ohlc[2],
-             stock->records[i].ohlc[3],
-             stock->records[i].volume);
-      format_date(stock->records[i].date);
+             &stock->records[i].ohlc[0],
+             &stock->records[i].ohlc[1],
+             &stock->records[i].ohlc[2],
+             &stock->records[i].ohlc[3],
+             &stock->records[i].volume);
    }
 
    fclose(fp);
@@ -247,12 +245,63 @@ int read_stock_data(stockType *stock, char *symbol)
    return 0;
 }
 
+void swap_record(shdType *A, shdType *B)
+{
+   shdType temp;
+   temp = *A;
+   *A = *B;
+   *B = temp;
+}
+
 void sort_stock_data(stockType *stock)
 {
+   int i, j, min;
+
+   long int date1, date2;
+
+   for (i = 0; i < stock->num_entries - 1; i++) {
+      min = i;
+
+      date1 = numeric_date(stock->records[min].date);
+
+      for (j = i + 1; j < stock->num_entries; j++) {
+         date2 = numeric_date(stock->records[j].date);
+         if (date1 > date2)
+            min = j;
+      }
+
+      if (i != min) {
+         swap_record(&stock->records[i], &stock->records[min]);
+      }
+   }
 }
 
 void write_stock_data(stockType *stock)
 {
+   int i;
+   FILE *fp;
+
+   fp = fopen("03-SYMBOL.txt", "w");
+
+   if (fp == NULL) {
+      fprintf(stderr, "ERROR: Cannot create output file.");
+      exit(1);
+   }
+
+   fprintf(fp, "%s %d\n\n", stock->symbol, stock->num_entries);
+
+   for (i = 0; i < stock->num_entries; i++) {
+      format_date(stock->records[i].date);
+      fprintf(fp, "%s  %.2lf  %.2lf  %.2lf  %.2lf  %.2lf\n",
+              stock->records[i].date,
+              stock->records[i].ohlc[0],
+              stock->records[i].ohlc[1],
+              stock->records[i].ohlc[2],
+              stock->records[i].ohlc[3],
+              stock->records[i].volume);
+   }
+
+   fclose(fp);
 }
 
 void process_stock(char *symbol)
