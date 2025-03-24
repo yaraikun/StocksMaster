@@ -149,12 +149,24 @@ Search(key, int A[], int n)
 #endif
 
 /* TO DO: define the functions that you need below this comment. */
-void process_stock(const char *symbol)
+read_stock_data(stockType *stock, char *symbol)
+{
+}
+
+sort_stock_data(stockType *stock)
+{
+}
+
+write_stock_data(stockType *stock)
+{
+}
+
+void process_stock(char *symbol)
 {
     stockType stock;
     strcpy(stock.symbol, symbol);
 
-    if (read_stock_data(&stock)) {
+    if (read_stock_data(&stock, symbol)) {
         sort_stock_data(&stock);
         write_stock_data(&stock);
     }
