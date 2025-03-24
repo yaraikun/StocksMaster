@@ -110,40 +110,41 @@
        into functions. A solution where all the logic are found only in the
        main() function will result to a 2-point deduction!
     4. Document your functions with SENSIBLE comments. Each function definition
-       must be PRECEDED by an online documentation (in the form of comments) describing
-       concisely the following:
-        a. What is the purpose of the function?
-        b. What is the nature of the functions return value (write "void" if
-           the function is of type void)
-        c. What is the nature of each formal parameter?
-        d. Pre-condition - what are the assumptions about the formal parameters?
+       must be PRECEDED by an online documentation (in the form of comments)
+       describing concisely the following:
+       a. What is the purpose of the function?
+       b. What is the nature of the functions return value (write "void" if
+          the function is of type void)
+       c. What is the nature of each formal parameter?
+       d. Pre-condition - what are the assumptions about the formal parameters?
 
-       Follow the online documentation style in the Search() example function definition given below.
+       Follow the online documentation style in the Search() example function
+       definition given below.
 */
 
 // DO NOT remove or edit the #if and #endif processor directives
 #if 0
 /*
-	Purpose: determine if the search key is in the array or not using a linear
-	         search algorithm 
-	Returns: either the (a) index of the array where the key was found or
-	         (b) a -1 to indicate that the key was not found
-	@param : key is the search key
-	@param : A is the name of the array containing the universe of values
-	@param : n is the number of array elements to check
-	Pre-condition: the parameters contain valid values
+    Purpose: determine if the search key is in the array or not using a linear
+             search algorithm
+    Returns: either the (a) index of the array where the key was found or
+             (b) a -1 to indicate that the key was not found
+    @param : key is the search key
+    @param : A is the name of the array containing the universe of values
+    @param : n is the number of array elements to check
+    Pre-condition: the parameters contain valid values
 */
-int 
+int
 Search(key, int A[], int n)
 {
-	int i; // indexing variable
+    int i; // indexing variable
 
-	// compare the search key with an element in the array
-	for (i = 0; i < n; i++)
-		if (key == A[i])  
-			return i;  // this means that the key was found	
+    // compare the search key with an element in the array
+    for (i = 0; i < n; i++)
+        if (key == A[i])
+            return i; // this means that the key was found
 
-	return -1; // -1 means that the key not found
+    return -1; // -1 means that the key not found
 }
 #endif
 
@@ -158,42 +159,60 @@ int main()
     // Do NOT declare/use other local variables.
 
     /*
-   Fill in the blank by supplying the missing name of the function that will accomplish the following:
+        Fill in the blank by supplying the missing name of the function that
+        will accomplish the following:
 
-   1. Read the contents of the input text file containing the stock historical data for the company
-      corresponding to the symbol specified as actual parameter. For example, if the actual parameter
-          is "AC", then the function should read ALL the contents of the file "AC.txt" stored in the SHD folder.
+        1. Read the contents of the input text file containing the stock
+           historical data for the company corresponding to the symbol specified
+           as actual parameter. For example, if the actual parameter is "AC",
+           then the function should read ALL the contents of the file "AC.txt"
+           stored in the SHD folder.
 
-   2. Write the contents of the output text file which contains basically the same set of values as the input
-      text file but with TWO differences:
-            a. the date values are formatted as "YYYY-AA-DD" (for example, "2021-OCT-27") where "AAA" represents the
-               first 3 characters of the month in word (in capital letters), i.e., "JAN", "FEB", ..., "NOV", "DEC".
-            b. the rows of data are in listed in CHRONOLOGICAL order starting from the oldest date to the most recent date.
+        2. Write the contents of the output text file which contains basically
+           the same set of values as the input text file but with TWO
+           differences:
+           a. the date values are formatted as "YYYY-AA-DD" (for example,
+              "2021-OCT-27") where "AAA" represents the first 3 characters of
+              the month in word (in capital letters), i.e., "JAN", "FEB", ...,
+              "NOV", "DEC".
+           b. the rows of data are in listed in CHRONOLOGICAL order starting
+              from the oldest date to the most recent date.
 
-   The name of the output text file should be GROUPNUMBER-SYMBOL.txt where SYMBOL is the stock's symbol. For
-   example, if your group number is 1, and the stock symbol is AC, then the output file should be named
-   as 01-AC.txt.
+        The name of the output text file should be GROUPNUMBER-SYMBOL.txt where
+        SYMBOL is the stock's symbol. For example, if your group number is 1,
+        and the stock symbol is AC, then the output file should be named as
+        01-AC.txt.
 
-       DO NOT ADD/EDIT ANY OTHER CODES ASIDE FROM THOSE REQUIRED IN THE 3 BLANKS!!!
+        DO NOT ADD/EDIT ANY OTHER CODES ASIDE FROM THOSE REQUIRED IN THE 3
+        BLANKS!!!
     */
 
     // #1: Call the function that will do fullfill the C9 requirements.
-    //     Fill in the missing function name with "AC" as actual parameter value.
-    ___________________("AC"); // TEST #1: AC -- test the solution for an existing stock symbol AC.txt.
-                               // Your program should produce the output text file named GROUPNUMBER-AC.txt
-                               // located in the same folder as your C source file.
+    //     Fill in the missing function name with "AC" as actual parameter
+    //     value.
+    process_stock("AC"); // TEST #1: AC -- test the solution for an existing
+                         // stock symbol AC.txt. Your program should produce the
+                         // output text file named GROUPNUMBER-AC.txt located in
+                         // the same folder as your C source file.
 
-    // #2. Do a second function call, this time with "XYZ" as the actual parameter value.
-    ___________________("XYZ"); // TEST #2: XYZ -- test the solution for a NON-existent stock symbol.
-                                // Since there's no company with XYZ as stock symbol, your solution should
-                                // display an error message on the standard error device.  The EXACT error message should be:
-                                //     "ERROR: XYZ.TXT not found!"  (don't forget the exclamation mark)
-                                // NOTE: You must use fprintf(stderr, ____) to display the error message.
+    // #2. Do a second function call, this time with "XYZ" as the actual
+    //     parameter value.
+    process_stock("XYZ"); // TEST #2: XYZ -- test the solution for a
+                          // NON-existent stock symbol. Since there's no company
+                          // with XYZ as stock symbol, your solution should
+                          // display an error message on the standard error
+                          // device. The EXACT error message should be:
+                          //     "ERROR: XYZ.TXT not found!" (don't forget the
+                          //     exclamation mark)
+                          // NOTE: You must use fprintf(stderr, ____) to display
+                          // the error message.
 
-    // #3. Do a third function call, this time with a company symbol input by the user.
+    // #3. Do a third function call, this time with a company symbol input by
+    //     the user.
     printf("Input the stock symbol: ");
-    scanf("%s", symbol);         // symbol may or may not exist (ex. "MPI", "GTCAP", "ZZZ", etc...)
-    ___________________(symbol); // TEST #3: -- test using a symbol input by the user
+    scanf("%s", symbol);   // symbol may or may not exist (ex. "MPI", "GTCAP",
+                           // "ZZZ", etc...)
+    process_stock(symbol); // TEST #3: -- test using a symbol input by the user
 
     return 0;
 }
