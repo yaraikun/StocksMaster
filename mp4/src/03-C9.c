@@ -149,8 +149,67 @@ Search(key, int A[], int n)
 #endif
 
 /* TO DO: define the functions that you need below this comment. */
+void parse_date(StrDate date, StrDate month, StrDate day, StrDate year)
+{
+    int i = 0, j = 0;   // indexing variables
+
+    // extract month
+    while (date[i] != '/')
+        month[j++] = date[i++]; // indexes through the date and part string
+    month[j] = '\0';
+
+    i++;                        // continues indexing through date string
+    j = 0;                      // refreshes the part string index to 0
+
+    // extract day
+    while (date[i] != '/')
+        day[j++] = date[i++];
+    day[j] = '\0';
+
+    i++;
+    j = 0;
+
+    // extract year
+    while (date[i] != '\0')
+        year[j++] = date[i++];
+    year[j] = '\0';
+}
+
+void wordify_month(StrDate month)
+{
+   int n_month = GetMonth(month);
+   
+   switch(n_month) {
+      case 1: strcpy(month, "JAN"); break;
+      case 2: strcpy(month, "FEB"); break;
+      case 3: strcpy(month, "MAR"); break;
+      case 4: strcpy(month, "APR"); break;
+      case 5: strcpy(month, "MAY"); break;
+      case 6: strcpy(month, "JUN"); break;
+      case 7: strcpy(month, "JUL"); break;
+      case 8: strcpy(month, "AUG"); break;
+      case 9: strcpy(month, "SEP"); break;
+      case 10: strcpy(month, "OCT"); break;
+      case 11: strcpy(month, "NOV"); break;
+      case 12: strcpy(month, "DEC"); break;
+   }
+}
+
 void format_date(StrDate date)
 {
+   StrDate month, day, year, temp;
+
+   parse_date(date, month, day, year);
+
+   wordify_month(month);
+
+   strcpy(temp, year);
+   strcat(temp, "-");
+   strcat(temp, month);
+   strcat(temp, "-");
+   strcat(temp, day);
+
+   strcpy(date, temp);
 }
 
 int read_stock_data(stockType *stock, char *symbol)
@@ -173,17 +232,19 @@ int read_stock_data(stockType *stock, char *symbol)
 
    i = 0;
    while (i < stock->num_entries) {
-   fscanf(fp, "%s %lf %lf %lf %lf %lf",
-          stock->records[i].date,
-          stock->records[i].ohlc[0],
-          stock->records[i].ohlc[1],
-          stock->records[i].ohlc[2],
-          stock->records[i].ohlc[3],
-          stock->records[i].volume);
-   format_date(stock->records[i].date);
+      fscanf(fp, "%s %lf %lf %lf %lf %lf",
+             stock->records[i].date,
+             stock->records[i].ohlc[0],
+             stock->records[i].ohlc[1],
+             stock->records[i].ohlc[2],
+             stock->records[i].ohlc[3],
+             stock->records[i].volume);
+      format_date(stock->records[i].date);
    }
 
-   return 1;
+   fclose(fp);
+
+   return 0;
 }
 
 void sort_stock_data(stockType *stock)
@@ -198,7 +259,7 @@ void process_stock(char *symbol)
 {
     stockType stock;
 
-    if (read_stock_data(&stock, symbol)) {
+    if (read_stock_data(&stock, symbol) == 0) {
         sort_stock_data(&stock);
         write_stock_data(&stock);
     }
