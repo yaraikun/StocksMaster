@@ -226,8 +226,8 @@ int read_stock_data(stockType *stock, char *symbol)
    fp = fopen(file_name, "r");
 
    if (fp == NULL) {
-      fprintf(stderr, "ERROR: %s not found!\n", file_name);
-      exit(1);
+      fprintf(stderr, "ERROR: %s.TXT not found!\n", symbol);
+      return 1;
    }
 
    fscanf(fp, "%s %d", stock->symbol, &stock->num_entries);
@@ -259,16 +259,16 @@ void sort_stock_data(stockType *stock)
 {
    int i, j, min;
 
-   long int date1, date2;
+   long int date_min, date_j;
 
    for (i = 0; i < stock->num_entries - 1; i++) {
       min = i;
 
-      date1 = numeric_date(stock->records[min].date);
+      date_min = numeric_date(stock->records[min].date);
 
       for (j = i + 1; j < stock->num_entries; j++) {
-         date2 = numeric_date(stock->records[j].date);
-         if (date1 > date2)
+         date_j = numeric_date(stock->records[j].date);
+         if (date_min > date_j)
             min = j;
       }
 
@@ -287,14 +287,9 @@ void write_stock_data(stockType *stock)
 
    strcpy(file_name, "03-");
    strcat(file_name, stock->symbol);
-   strcpy(file_name, ".txt");
+   strcat(file_name, ".txt");
 
    fp = fopen(file_name, "w");
-
-   if (fp == NULL) {
-      fprintf(stderr, "ERROR: Cannot create output file.");
-      exit(1);
-   }
 
    fprintf(fp, "%s %d\n\n", stock->symbol, stock->num_entries);
 
@@ -382,6 +377,7 @@ int main()
     // #3. Do a third function call, this time with a company symbol input by
     //     the user.
     printf("Input the stock symbol: ");
+    fflush(stdout);
     scanf("%s", symbol);   // symbol may or may not exist (ex. "MPI", "GTCAP",
                            // "ZZZ", etc...)
     process_stock(symbol); // TEST #3: -- test using a symbol input by the user
