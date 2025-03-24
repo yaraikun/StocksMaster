@@ -149,6 +149,16 @@ Search(key, int A[], int n)
 #endif
 
 /* TO DO: define the functions that you need below this comment. */
+void process_stock(const char *symbol)
+{
+    stockType stock;
+    strcpy(stock.symbol, symbol);
+
+    if (read_stock_data(&stock)) {
+        sort_stock_data(&stock);
+        write_stock_data(&stock);
+    }
+}
 
 /*
    main() function for testing student's solution.
