@@ -3,24 +3,18 @@ INCLUDE = -Iinclude -Ilib
 CFLAGS = -Wall -Wextra $(INCLUDE)
 
 SRC_DIR = src
-OBJ_DIR = obj
 BIN_DIR = bin
 
 SRC = $(wildcard $(SRC_DIR)/*.c)
-OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-BIN = $(BIN_DIR)/app.exe
+BIN = $(patsubst $(SRC_DIR)/%.c, $(BIN_DIR)/%, $(SRC))
 
-$(BIN): $(OBJ) $(BIN_DIR) $(OBJ_DIR)
-	$(CC) $(OBJ) -o $(BIN)
+all: $(BIN)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(BIN_DIR) $(OBJ_DIR):
-	mkdir -p $@
+$(BIN_DIR)/%: $(SRC_DIR)/%.c | $(BIN_DIR)
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/app.exe
+	rm -rf $(BIN_DIR)/*.exe
 
 run:
 	$(BIN)
