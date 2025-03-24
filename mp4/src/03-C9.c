@@ -149,22 +149,54 @@ Search(key, int A[], int n)
 #endif
 
 /* TO DO: define the functions that you need below this comment. */
-read_stock_data(stockType *stock, char *symbol)
+void format_date(StrDate date)
 {
 }
 
-sort_stock_data(stockType *stock)
+int read_stock_data(stockType *stock, char *symbol)
+{
+   int i;
+   FILE *fp;
+   StrStock file_name;
+
+   strcpy(file_name, symbol);
+   strcat(file_name, ".txt");
+
+   fp = fopen(file_name, "r");
+
+   if (fp == NULL) {
+      fprintf(stderr, "ERROR: %s not found!\n", file_name);
+      exit(1);
+   }
+
+   fscanf(fp, "%s %d", stock->symbol, stock->num_entries);
+
+   i = 0;
+   while (i < stock->num_entries) {
+   fscanf(fp, "%s %lf %lf %lf %lf %lf",
+          stock->records[i].date,
+          stock->records[i].ohlc[0],
+          stock->records[i].ohlc[1],
+          stock->records[i].ohlc[2],
+          stock->records[i].ohlc[3],
+          stock->records[i].volume);
+   format_date(stock->records[i].date);
+   }
+
+   return 1;
+}
+
+void sort_stock_data(stockType *stock)
 {
 }
 
-write_stock_data(stockType *stock)
+void write_stock_data(stockType *stock)
 {
 }
 
 void process_stock(char *symbol)
 {
     stockType stock;
-    strcpy(stock.symbol, symbol);
 
     if (read_stock_data(&stock, symbol)) {
         sort_stock_data(&stock);
