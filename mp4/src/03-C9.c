@@ -150,6 +150,16 @@ Search(key, int A[], int n)
 
 /* TO DO: define the functions that you need below this comment. */
 
+/*
+    Purpose: extracts the month, day, and year from a date string
+    Returns: void (modifies month, day, and year string)
+    @param : date is the input date string in "M/D/YY" or "MM/DD/YYYY" format
+    @param : month is the output parameter for the extracted month
+    @param : day is the output parameter for the extracted day
+    @param : year is the output parameter for the extracted year
+    Pre-condition: date is a valid date string containing exactly two '/' 
+                   characters.
+*/
 void parse_date(StrDate date, StrDate month, StrDate day, StrDate year)
 {
     int i = 0, j = 0;   // indexing variables
@@ -176,6 +186,13 @@ void parse_date(StrDate date, StrDate month, StrDate day, StrDate year)
     year[j] = '\0';
 }
 
+/*
+    Purpose: converts a numeric month string to its three-letter abbreviation
+    Returns: void (modifies month string)
+    @param : month is the input month string (numeric) and will be modified
+             to contain the three-letter abbreviation.
+    Pre-condition: month is a valid numeric month string from "1" to "12".
+*/
 void wordify_month(StrDate month)
 {
    int n_month = GetMonth(month);
@@ -196,6 +213,14 @@ void wordify_month(StrDate month)
    }
 }
 
+/*
+    Purpose: reformats a date string from "M/D/YY" or "MM/DD/YYYY" format to 
+             "YYYY-MMM-DD" format.
+    Returns: void (modifies date string)
+    @param : date is the input and output date string.
+    Pre-condition: date is a valid date string containing exactly two '/' 
+                   characters.
+*/
 void format_date(StrDate date)
 {
    StrDate month, day, year, temp;
@@ -213,6 +238,15 @@ void format_date(StrDate date)
    strcpy(date, temp);
 }
 
+/*
+    Purpose: reads stock data from a text file and stores it in a stockType 
+             structure.
+    Returns: int (0 if successful, 1 if file not found)
+    @param : stock is a pointer to a stockType structure where data will be 
+             stored.
+    @param : symbol is the stock symbol used to generate the filename.
+    Pre-condition: symbol is a valid string representing a stock symbol.
+*/
 int read_stock_data(stockType *stock, char *symbol)
 {
    int i;
@@ -246,6 +280,13 @@ int read_stock_data(stockType *stock, char *symbol)
    return 0;
 }
 
+/*
+    Purpose: swaps two stock record entries.
+    Returns: void (modifies A and B)
+    @param : A is a pointer to the first stock record.
+    @param : B is a pointer to the second stock record.
+    Pre-condition: A and B are valid pointers to stock record structures.
+*/
 void swap_record(shdType *A, shdType *B)
 {
    shdType temp;
@@ -254,6 +295,14 @@ void swap_record(shdType *A, shdType *B)
    *B = temp;
 }
 
+/*
+    Purpose: sorts stock records in ascending order by date using selection 
+             sort.
+    Returns: void (modifies stock structure)
+    @param : stock is a pointer to a stockType structure containing stock 
+             records.
+    Pre-condition: stock contains at least one record.
+*/
 void sort_stock_data(stockType *stock)
 {
    int i, j, min;
@@ -277,6 +326,13 @@ void sort_stock_data(stockType *stock)
    }
 }
 
+/*
+    Purpose: writes sorted stock data to a text file.
+    Returns: void (creates a new file with sorted stock data)
+    @param : stock is a pointer to a stockType structure containing sorted 
+             stock records.
+    Pre-condition: stock contains at least one record.
+*/
 void write_stock_data(stockType *stock)
 {
    int i;
@@ -306,6 +362,13 @@ void write_stock_data(stockType *stock)
    fclose(fp);
 }
 
+/*
+    Purpose: processes stock data by reading, sorting, and writing it back 
+             to a file.
+    Returns: void (performs stock data processing)
+    @param : symbol is the stock symbol used to locate the input file.
+    Pre-condition: symbol is a valid string representing a stock symbol.
+*/
 void process_stock(char *symbol)
 {
     stockType stock;
