@@ -157,6 +157,35 @@ Search(key, int A[], int n)
            Remember that you need to implement the binary search algorithm with
            date as search key.
 */
+void process_portfolio(char *portfolio_filename, char *reference_date)
+{
+    FILE *portfolio_fp, *output_fp;
+    char output_filename[100];
+    StrStock stock_symbol;
+    StrDate buy_date;
+    int num_shares;
+
+    portfolio_fp = fopen(portfolio_filename, "r");
+
+    if (portfolio_fp == NULL) {
+        fprintf(stderr, "ERROR: %s not found!\n", portfolio_filename);
+        return;
+    }
+
+    strcpy(output_filename, "03-");
+    strcat(output_filename, portfolio_filename);
+
+    output_fp = fopen(output_filename, "w");
+
+    fprintf(output_fp, "PORTFOLIO PERFORMANCE AS OF %s\n\n", reference_date);
+
+    while (fscanf(portfolio_fp, "%s %d %s", stock_symbol, &num_shares, buy_date) == 3) {
+        process_stock_entry(output_fp, stock_symbol, num_shares, buy_date, reference_date);
+    }
+
+    fclose(portfolio_fp);
+    fclose(output_fp);
+}
 
 /*
      TO DO: Complete the body of the main() function.
@@ -178,7 +207,7 @@ int main()
 
     // TEST #1: Call the function that will fullfill the C10 requirements using
     //          hardcoded actual parameters.
-    __________________________("PORTFOLIO.txt", "12/27/2019");
+    process_portfolio("PORTFOLIO.txt", "12/27/2019");
 
     // TEST #2: Call the function that will fullfill the C10 requirements using
     // actual parameters specified via scanf()
@@ -188,7 +217,7 @@ int main()
     printf("Input a reference date in MM/DD/YYYY format: ");
     scanf("%s", reference_date); // example: 12/27/2019  or other dates you may
                                  // want to use for testing
-    _______________________(portfolio_filename, reference_date);
+    process_portfolio(portfolio_filename, reference_date);
 
     /*
         NOTE: In case the text file corresponding to portfolio_filename does not
