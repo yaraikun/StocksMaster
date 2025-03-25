@@ -149,7 +149,6 @@ Search(key, int A[], int n)
 #endif
 
 /* TO DO: define the functions that you need below this comment. */
-typedef char Str30[31];
 
 void parse_date(StrDate date, StrDate month, StrDate day, StrDate year)
 {

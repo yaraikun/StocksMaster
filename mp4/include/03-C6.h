@@ -53,6 +53,7 @@
 /*
     You may declare any typedef that you need below this comment.
 */
+typedef char Str30[31];
 
 /*
     Do NOT change the next two typedef declarations.
